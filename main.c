@@ -86,7 +86,7 @@ int main() {
 	float wnd_speed = size * 6.f;
 	moon_FloatRect wnd_rect = {0.f, 0.f, wnd_w, wnd_h};
 
-	moon_Color moon_clr = moon_Color_from_rgba(120, 6, 6, 255);	// Blood red.
+	moon_Color moon_clr = moon_Colors_BloodRed(255);
 	moon_CircleShape* moon = moon_CircleShape_create_ex(
 		size * 1.5f,
 		moon_CircleShape_DefaultPointCount,
@@ -159,10 +159,10 @@ int main() {
 	float eye_speed = 3.f * size;
 	moon_Angle eye_rot = 0.f;
 
-	moon_Color text_color = moon_Color_from_rgba(255, 255, 255, 255);
+	moon_Color text_color = moon_Colors_White(255);
 	unsigned int fnt_size = (unsigned int)(size * 1.25f);
 	moon_TextWrite* text = moon_TextWrite_create(
-		.2f, // typing_speed
+		moon_TextWrite_DefaultTypingSpeed,
 		font,
 		fnt_size
 	);
@@ -178,7 +178,7 @@ int main() {
 		wnd_h - fnt_size * 2.f
 	);
 
-	moon_Color cntr_color = moon_Color_from_rgba(212, 175, 55, 255); 	// Gold
+	moon_Color cntr_color = moon_Colors_MetallicGold(255);
 	moon_guiFpsCntr* fps_cntr = moon_guiFpsCntr_create_ex(
 		2, .15f, font, fnt_size, &cntr_color
 	);
@@ -187,7 +187,7 @@ int main() {
 	moon_guiFpsCntr_set_position(fps_cntr, wnd_w - fnt_size, 0.f);
 	moon_guiFpsCntr_set_style(fps_cntr, moon_Text_Style_Bold);
 
-	moon_Color bg_clr = moon_Color_from_rgb(102, 0, 153);		// Dark purple.
+	moon_Color bg_clr = moon_Colors_DarkPurple(255);
 	moon_Event* event = moon_Event_create();
 	moon_RenderStates* states = moon_RenderStates_default();
 	moon_Destroyer_push_back(destroyer, event, moon_Destroyable_Event);

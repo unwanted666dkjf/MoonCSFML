@@ -1,2 +1,11 @@
-./Built
-./ExtraDeps
+Built/
+ExtraDeps/
+CMakeFiles/
+build.ninja
+.ninja_log
+.ninja_deps
+Makefile
+MoonCSFML
+MoonCSFML.exe
+CMakeCache.txt
+cmake_install.cmake

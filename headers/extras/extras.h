@@ -9,6 +9,8 @@ extern "C" {
 
 #include "./moon_os.h"
 
+#include "./moon_colors.h"
+
 #include "./moon_utf8.h"
 
 #include "./moon_path.h"

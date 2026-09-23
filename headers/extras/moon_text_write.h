@@ -17,6 +17,9 @@ extern "C" {
 #include <wchar.h>
 
 
+#define moon_TextWrite_DefaultTypingSpeed (.2f)
+
+
 struct MOON_CSFML_API moon_TextWrite;
 
 /**
