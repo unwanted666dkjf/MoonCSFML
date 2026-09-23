@@ -26,7 +26,7 @@ int main() {
 	moon_VideoMode desktop_mode = moon_VideoMode_get_desktop_mode();
 
 	unsigned int fps 	= 60;
-	unsigned int size 	= desktop_mode.height / 14;
+	unsigned int size 	= moon_StandardSizes_get_size(&desktop_mode);
 	unsigned int wnd_w 	= size * 18, wnd_h = size * 11;
 	float fps_k = 60.f / (float)((fps != 0) ? fps : 1.f);
 

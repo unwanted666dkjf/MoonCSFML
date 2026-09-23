@@ -78,6 +78,26 @@ moon_roundf(float value, int digits) {
 	return std::roundf(value * factor) / factor;
 }
 
+double
+moon_ceil(double value) {
+	return std::ceil(value);
+}
+
+float
+moon_ceilf(float value) {
+	return std::ceilf(value);
+}
+
+double
+moon_floor(double value) {
+	return std::floor(value);
+}
+
+float
+moon_floorf(float value) {
+	return std::floorf(value);
+}
+
 void*
 moon_memcpy(
 	void* destination,

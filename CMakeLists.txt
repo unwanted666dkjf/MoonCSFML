@@ -192,6 +192,7 @@ set(SOURCES
 	src/extras/moon_text_write.cpp
 	src/extras/moon_gui_fpscntr.cpp
 	src/extras/moon_useful_funcs.cpp
+	src/extras/moon_standard_sizes.cpp
 	src/extras/moon_slide_animation.cpp
 	src/extras/moon_sprite_transform.cpp
 )

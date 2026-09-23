@@ -37,6 +37,8 @@ extern "C" {
 
 #include "./moon_useful_funcs.h"
 
+#include "./moon_standard_sizes.h"
+
 #include "./moon_slide_animation.h"
 
 #include "./moon_sprite_transform.h"

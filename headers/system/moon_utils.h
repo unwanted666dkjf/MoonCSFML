@@ -99,6 +99,34 @@ MOON_CSFML_API float
 moon_roundf(float value, int digits);
 
 /**
+ * Rounds the number up.
+ * Wrapper for std::ceil.
+ */
+MOON_CSFML_API double
+moon_ceil(double value);
+
+/**
+ * Rounds the number up.
+ * Wrapper for std::ceil.
+ */
+MOON_CSFML_API float
+moon_ceilf(float value);
+
+/**
+ * Rounds the number down.
+ * Wrapper for std::floor.
+ */
+MOON_CSFML_API double
+moon_floor(double value);
+
+/**
+ * Rounds the number down.
+ * Wrapper for std::floorf.
+ */
+MOON_CSFML_API float
+moon_floorf(float value);
+
+/**
  * Wrapper for std::memcpy.
  * std::memcpy copies a specified number of bytes from a source to a destination.
  * Performs the following operations in order:
