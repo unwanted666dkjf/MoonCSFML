@@ -1,6 +1,8 @@
 Built/
 ExtraDeps/
 CMakeFiles/
+msg.txt
+msgs.txt
 build.ninja
 .ninja_log
 .ninja_deps

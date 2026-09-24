@@ -196,6 +196,37 @@ StrT* moon_str_strip_whitespace(const StrT* str, long long str_length) {
 	return moon_strslice<StrT>(str, lind, rind + 1LL, 1LL);
 }
 
+template <typename StrT>
+StrT* moon_str_remove_external_quotes(const StrT* str, long long str_length) {
+	StrT null = moon_nullterminator<StrT>();
+	if (!str || str[0] == null) {
+		return moon_strnull<StrT>();
+	}
+	if (str_length == moon_Utils_StringLengthUnknown) {
+		str_length = moon_strlen<StrT>(str);
+	}
+	if (str_length < 2) {
+		return moon_strcopy<StrT>(str, str_length);
+	}
+	long long last_ind 	= str_length - 1LL;
+	long long first_ind = 0LL;
+	StrT quote1 = static_cast<StrT>(39);	// '
+	StrT quote2 = static_cast<StrT>(34);	// "
+	if (str[first_ind] == str[last_ind]) {
+		if (
+			str[first_ind] == quote1
+			|| str[first_ind] == quote2
+		) {
+			first_ind++;
+			last_ind--;
+		}
+		if (first_ind >= str_length || last_ind < 0LL) {
+			return moon_strnull<StrT>();
+		}
+	}
+	return moon_strslice<StrT>(str, first_ind, last_ind + 1LL, 1LL);
+}
+
 template <typename StrT, typename stdStrT>
 StrT* moon_format_strnum(const stdStrT& text) {
 	long long text_size = static_cast<long long>(text.size()) - 1LL;

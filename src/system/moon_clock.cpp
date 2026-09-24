@@ -86,7 +86,10 @@ moon_Clock_delta(const moon_Clock* self) {
 moon_Time
 moon_Clock_restart(moon_Clock* self) {
 	moon_Time buf = self->buffer;
-	self->buffer = 0ULL;
+	self->buffer 		= 0ULL;
+	if (!self->is_running) {
+		moon_Clock_start(self);
+	}
 	return buf;
 }
 

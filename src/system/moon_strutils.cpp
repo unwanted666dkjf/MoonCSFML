@@ -74,6 +74,22 @@ moon_strnullW() {
 }
 
 char*
+moon_str_remove_external_quotesA(
+	const char* str,
+	long long str_length
+) {
+	return moon_str_remove_external_quotes<char>(str, str_length);
+}
+
+wchar_t*
+moon_str_remove_external_quotesW(
+	const wchar_t* str,
+	long long str_length
+) {
+	return moon_str_remove_external_quotes<wchar_t>(str, str_length);
+}
+
+char*
 moon_ftostrA(float number) {
 	std::string text = std::to_string(number);
 	return moon_format_strnum<char, std::string>(text);

@@ -79,6 +79,7 @@ moon_Clock_delta(const moon_Clock* self);
 /**
  * Clears time buffer.
  * Returns buffered time.
+ * Starts the clock if it is not running.
  */
 MOON_CSFML_API moon_Time
 moon_Clock_restart(moon_Clock* self);

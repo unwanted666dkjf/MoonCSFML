@@ -130,6 +130,9 @@ set(LIB_MYSOFA				"${SFML_LIBS_DIR}/libmysofa.a")
 set(LIB_BZIP2				"${SFML_LIBS_DIR}/libbz2.a")
 set(LIB_PNG					"${SFML_LIBS_DIR}/libpng.a")
 set(LIB_ZLIB				"${SFML_LIBS_DIR}/libz.a")
+set(LIB_BROTLI 				"${SFML_LIBS_DIR}/libbrotlidec.a")
+set(LIB_BROTLIENC 			"${SFML_LIBS_DIR}/libbrotlienc.a")
+set(LIB_BROTLICOMMON 		"${SFML_LIBS_DIR}/libbrotlicommon.a")
 
 set(SOURCES
 	src/system/Converters.cpp
@@ -272,6 +275,10 @@ if(UNIX)
 			"${LIB_HARFBUZZ_VECTOR}"
 			"${LIB_HARFBUZZ}"
 
+			"${LIB_BROTLI}"
+			"${LIB_BROTLIENC}"
+			"${LIB_BROTLICOMMON}"
+
 			"${LIB_VORBISFILE}"
 			"${LIB_VORBISENC}"
 			"${LIB_OPENAL}"
@@ -280,7 +287,6 @@ if(UNIX)
 			"${LIB_OGG}"
 
 		"LINKER:--end-group"
-		brotlidec brotlicommon
 		udev m pthread dl OpenGL::GL
 	)
 else()
@@ -304,6 +310,10 @@ else()
 			"${LIB_HARFBUZZ_SUBSET}"
 			"${LIB_HARFBUZZ_VECTOR}"
 			"${LIB_HARFBUZZ}"
+
+			"${LIB_BROTLI}"
+			"${LIB_BROTLIENC}"
+			"${LIB_BROTLICOMMON}"
 
 			"${LIB_VORBISFILE}"
 			"${LIB_VORBISENC}"

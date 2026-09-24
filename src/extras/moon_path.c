@@ -1,7 +1,3 @@
-#include <stdio.h>			// debug
-
-
-
 #include "../../headers/system/moon_utils.h"
 
 #include "../../headers/system/moon_strutils.h"
@@ -126,10 +122,24 @@ moon_Path_get_normpath(
 		return NULL;
 	}
 	char os_sep = (char)(moon_OS_sep);
+	int is_quoted = 0;
 	unsigned long ind = 0UL;
 	for (; start_ind <= end_ind; start_ind++) {
 		char c = path[start_ind];
-		if (c == '/' || c == '\\') {
+		if (c == '\'' && (is_quoted != 2)) {
+			if (is_quoted == 1) {
+				is_quoted = 0;
+			} else {
+				is_quoted = 1;
+			}
+		} else if (c == '\"' && (is_quoted != 1)) {
+			if (is_quoted == 2) {
+				is_quoted = 0;
+			} else {
+				is_quoted = 2;
+			}
+		}
+		if (!is_quoted && (c == '/' || c == '\\')) {
 			c = os_sep;
 		}
 		normalized[ind++] = c;

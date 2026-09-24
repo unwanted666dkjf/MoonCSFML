@@ -101,6 +101,38 @@ MOON_CSFML_API wchar_t*
 moon_strnullW();
 
 /**
+ * Frees the ansi null-terminated string from external quotes.
+ * Example: 'quoted' --> quoted.
+ * The function distinguishes between 2 types of quotes: ' and ".
+ * If the string length is set to
+ *'moon_Utils_StringLengthUnknown', it will
+ *be calculated automatically.
+ * Result will be null-terminated.
+ * Result must be freed after usage.
+ */
+MOON_CSFML_API char*
+moon_str_remove_external_quotesA(
+	const char* str,
+	long long str_length
+);
+
+/**
+ * Frees the wide null-terminated string from external quotes.
+ * The function distinguishes between 2 types of quotes: ' and ".
+ * Example: 'quoted' --> quoted.
+ * If the string length is set to
+ *'moon_Utils_StringLengthUnknown', it will
+ *be calculated automatically.
+ * Result will be null-terminated.
+ * Result must be freed after usage.
+ */
+MOON_CSFML_API wchar_t*
+moon_str_remove_external_quotesW(
+	const wchar_t* str,
+	long long str_length
+);
+
+/**
  * Converts float to ansi string.
  * Uses std::to_string and copies result to
  *C string.

@@ -45,6 +45,11 @@ moon_Path_is_file(const char* path);
  *are removed from the beginning and end of the line, as
  *well as the path separator from the end. Then the path
  *separator is replaced with the correct one for the current OS.
+ * If the text has quotation marks, then no substitutions will
+ *be made inside the quotation marks. Moreover, for correct operation,
+ *if the text has an opening quote, then there must also be a closing quote.
+ * The function distinguishes between 2 types of quotes: ' and ".
+ *Escaping quotes is not supported.
  * If the path consists only of path separators, it will simply be copied.
  * Returns NULL if fails.
  * Result will be null-terminated.
