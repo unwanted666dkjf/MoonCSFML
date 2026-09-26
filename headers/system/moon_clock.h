@@ -39,8 +39,9 @@ moon_Clock_destroy(moon_Clock* self);
  * You should always call it in a game loop. Otherwise,
  *clock won't work.
  * This function is not blocking.
+ * Returns accumulated time.
  */
-MOON_CSFML_API void
+MOON_CSFML_API moon_Time
 moon_Clock_wait(moon_Clock* self);
 
 /**

@@ -268,6 +268,20 @@ moon_SlideAnimation_get_local_bounds(const moon_SlideAnimation* self);
 MOON_CSFML_API moon_FloatRect
 moon_SlideAnimation_get_global_bounds(const moon_SlideAnimation* self);
 
+/**
+ * Returns world bounds of current animation sprite.
+ * If there is no sprites, returns empty rectangle.
+ *
+ * What is world bounds?
+ * It is position of the object and size of the object.
+ * {left(x), top(y), width, height}
+ * For some reason position from global bounds and
+ *position from getPosition are different. This is why
+ *this function exist.
+ */
+MOON_CSFML_API moon_FloatRect
+moon_SlideAnimation_get_world_bounds(const moon_SlideAnimation* self);
+
 
 #ifdef __cplusplus
 }

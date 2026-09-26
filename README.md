@@ -50,7 +50,7 @@ This is done on purpose so as not to overcomplicate the project.<br>
 
 You can download built version of library from 'release' page or build it yourself.<br>
 
-Building requirements:
+Building requirements:<br>
 - OS: Windows(8.1 or newer) or Linux, macOS not supported;
 - Architecture: 64-bit only;
 - Compiler: gcc for Linux or mingw for Windows, other compilers are not supported;
@@ -64,7 +64,7 @@ X11, Xrandr, Xcursor, Xinerama, Xi, Xxf86vm,
 xkbcommon-x11 and Xrender.
 Btw, wayland sucks.<br>
 
-Building:
+Building:<br>
 0. Download repository.
 1. Check the CMake file, change the build mode if necessary.
 2. Create a build directory inside the project folder and go to it.
@@ -77,18 +77,18 @@ cmake --build . or cmake --build . --config Release
 
 ## Learn
 
-Please, use these official sources for SFML:
+Please, use these official sources for SFML:<br>
 * The [official tutorials](https://www.sfml-dev.org/tutorials/)
 * The [online API documentation](https://www.sfml-dev.org/documentation/)
 * The [community wiki](https://github.com/SFML/SFML/wiki/)
-* The [community forum](https://en.sfml-dev.org/forums/) (or [French](https://fr.sfml-dev.org/forums/))
+* The [community forum](https://en.sfml-dev.org/forums/) (or [French](https://fr.sfml-dev.org/forums/))<br>
 
 My API is not much different from the standard one for SFML2.6.2.
 But, of course, as always, the best tutorial is the source code.<br>
 
 Also, you have documentation in headers and example in file 'main.c'.
 To run the example you need to go to the 'Build' directory, change 
-the build mode in the CMake file and enter the following commands:
+the build mode in the CMake file and enter the following commands:<br>
 ```bash
 cmake .. or cmake .. -DCMAKE_BUILD_TYPE=Release
 cmake --build . or cmake --build . --config Release

@@ -129,6 +129,17 @@ MOON_CSFML_API void
 moon_TextWrite_update(moon_TextWrite* self);
 
 /**
+ * Clears current text.
+ * Resets typing(sets typing from the first character).
+ * Realigns text.
+ * The orientation preserves the original center
+ *position in global coordinates.
+ * This function does not starts nor stops typing.
+ */
+MOON_CSFML_API void
+moon_TextWrite_clear(moon_TextWrite* self);
+
+/**
  * Draws text to the render window.
  */
 MOON_CSFML_API void
@@ -158,6 +169,19 @@ moon_TextWrite_get_stringW(const moon_TextWrite* self);
  */
 MOON_CSFML_API moon_Vector2f
 moon_TextWrite_get_size(const moon_TextWrite* self);
+
+/**
+ * Returns world bounds of the object.
+ *
+ * What is world bounds?
+ * It is position of the object and size of the object.
+ * {left(x), top(y), width, height}
+ * For some reason position from global bounds and
+ *position from getPosition are different. This is why
+ *this function exist.
+ */
+MOON_CSFML_API moon_FloatRect
+moon_TextWrite_get_world_bounds(const moon_TextWrite* self);
 
 /**
  * Sets the text's font.

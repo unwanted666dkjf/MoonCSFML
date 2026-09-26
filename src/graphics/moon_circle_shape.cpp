@@ -74,6 +74,17 @@ moon_CircleShape_get_size(const moon_CircleShape* self) {
 	return {bounds.width, bounds.height};
 }
 
+moon_FloatRect
+moon_CircleShape_get_world_bounds(const moon_CircleShape* self) {
+	sf::FloatRect bounds = self->getGlobalBounds();
+	return {
+		self->m_position.x,
+		self->m_position.y,
+		bounds.width,
+		bounds.height
+	};
+}
+
 void
 moon_CircleShape_set_radius(
 	moon_CircleShape* self,

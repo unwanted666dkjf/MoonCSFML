@@ -142,6 +142,11 @@ moon_guiFpsCntr_get_size(const moon_guiFpsCntr* self) {
 	return moon_Text_get_size(self->gui_fps);
 }
 
+moon_FloatRect
+moon_guiFpsCntr_get_world_bounds(const moon_guiFpsCntr* self) {
+	return moon_Text_get_world_bounds(self->gui_fps);
+}
+
 void
 moon_guiFpsCntr_set_font(
 	moon_guiFpsCntr* self,

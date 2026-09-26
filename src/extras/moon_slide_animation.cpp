@@ -300,6 +300,15 @@ moon_SlideAnimation_get_global_bounds(const moon_SlideAnimation* self) {
 	return moon_Sprite_get_global_bounds(current);
 }
 
+moon_FloatRect
+moon_SlideAnimation_get_world_bounds(const moon_SlideAnimation* self) {
+	const moon_Sprite* current = moon_SlideAnimation_get_current_sprite(self);
+	if (!current) {
+		return moon_FloatRect_create_empty();
+	}
+	return moon_Sprite_get_world_bounds(current);
+}
+
 
 void
 moon_SlideAnimation_resize_sprite(

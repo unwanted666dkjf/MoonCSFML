@@ -205,12 +205,11 @@ int main() {
 	int is_running = moon_RenderWindow_is_open(wnd);
 	while (is_running) {
 
-		moon_Clock_wait(clock);
+		float elapsed_seconds = moon_Time_as_seconds(
+			moon_Clock_wait(clock)
+		);
 		float delta_seconds = moon_Time_as_seconds(
 			moon_Clock_delta(clock)
-		);
-		float elapsed_seconds = moon_Time_as_seconds(
-			moon_Clock_get_elapsed_time(clock)
 		);
 
 		moon_Event_reset(event);

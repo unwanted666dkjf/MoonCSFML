@@ -68,6 +68,17 @@ moon_Text_get_size(const moon_Text* self) {
 	return {bounds.width, bounds.height};
 }
 
+moon_FloatRect
+moon_Text_get_world_bounds(const moon_Text* self) {
+	sf::FloatRect bounds = self->getGlobalBounds();
+	return {
+		self->m_position.x,
+		self->m_position.y,
+		bounds.width,
+		bounds.height
+	};
+}
+
 int
 moon_Text_set_stringA(
 	moon_Text* self,

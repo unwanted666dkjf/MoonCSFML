@@ -40,10 +40,10 @@ moon_Clock_destroy(moon_Clock* self) {
 	delete self;
 }
 
-void
+moon_Time
 moon_Clock_wait(moon_Clock* self) {
 	if (!self->is_running) {
-		return;
+		return self->buffer;
 	}
 	steady_clock::time_point current = steady_clock::now();
 	const nanoseconds elapsed =
@@ -51,6 +51,7 @@ moon_Clock_wait(moon_Clock* self) {
 	self->dt = static_cast<unsigned long long>(elapsed.count());
 	self->buffer += self->dt;
 	self->current = current;
+	return self->buffer;
 }
 
 void

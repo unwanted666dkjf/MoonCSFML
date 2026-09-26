@@ -84,6 +84,19 @@ MOON_CSFML_API moon_Vector2f
 moon_ConvexShape_get_size(const moon_ConvexShape* self);
 
 /**
+ * Returns world bounds of the object.
+ *
+ * What is world bounds?
+ * It is position of the object and size of the object.
+ * {left(x), top(y), width, height}
+ * For some reason position from global bounds and
+ *position from getPosition are different. This is why
+ *this function exist.
+ */
+MOON_CSFML_API moon_FloatRect
+moon_ConvexShape_get_world_bounds(const moon_ConvexShape* self);
+
+/**
  * Sets the number of points of the polygon.
  * \a count must be greater than 2 to define a valid shape.
  */

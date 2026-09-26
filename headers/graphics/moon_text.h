@@ -104,6 +104,19 @@ MOON_CSFML_API moon_Vector2f
 moon_Text_get_size(const moon_Text* self);
 
 /**
+ * Returns world bounds of the object.
+ *
+ * What is world bounds?
+ * It is position of the object and size of the object.
+ * {left(x), top(y), width, height}
+ * For some reason position from global bounds and
+ *position from getPosition are different. This is why
+ *this function exist.
+ */
+MOON_CSFML_API moon_FloatRect
+moon_Text_get_world_bounds(const moon_Text* self);
+
+/**
  * Sets the text's string(ansi)
  *if it's different from current.
  * String must be null-terminated.

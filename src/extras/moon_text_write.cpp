@@ -17,6 +17,13 @@
 #include "../../headers/extras/TextWriteStruct.hpp"
 
 
+static void
+moon_TextWrite_realign(
+	moon_TextWrite* self,
+	const sf::FloatRect& old_bounds
+);
+
+
 moon_TextWrite*
 moon_TextWrite_create(
 	float typing_speed,
@@ -109,20 +116,17 @@ moon_TextWrite_update(moon_TextWrite* self) {
 	sf::String new_str = self->text_to_type.substring(0, ++self->cur_ind);
 	sf::FloatRect old_bounds = self->text->getGlobalBounds();
 	if(moon_Text_set_stringW(self->text, new_str.toWideString().c_str())) {
-		sf::FloatRect new_bounds = self->text->getGlobalBounds();
-
-		float old_centerx = old_bounds.left + old_bounds.width * .5f;
-		float old_centery = old_bounds.top + old_bounds.height * .5f;
-
-		float new_centerx = new_bounds.left + new_bounds.width * .5f;
-		float new_centery = new_bounds.top + new_bounds.height * .5f;
-
-		moon_Text_move(
-			self->text,
-			old_centerx - new_centerx,
-			old_centery - new_centery
-		);
+		moon_TextWrite_realign(self, old_bounds);
 	}
+}
+
+void
+moon_TextWrite_clear(moon_TextWrite* self) {
+	sf::FloatRect old_bounds = self->text->getGlobalBounds();
+	if (moon_Text_set_stringA(self->text, "")) {
+		moon_TextWrite_realign(self, old_bounds);
+	}
+	self->cur_ind = 0UL;
 }
 
 void
@@ -149,6 +153,11 @@ moon_TextWrite_get_stringW(const moon_TextWrite* self) {
 moon_Vector2f
 moon_TextWrite_get_size(const moon_TextWrite* self) {
 	return moon_Text_get_size(self->text);
+}
+
+moon_FloatRect
+moon_TextWrite_get_world_bounds(const moon_TextWrite* self) {
+	return moon_Text_get_world_bounds(self->text);
 }
 
 void
@@ -362,6 +371,26 @@ moon_TextWrite_is_inversed_transform_updated(const moon_TextWrite* self) {
 }
 
 // Text end.
+
+void
+moon_TextWrite_realign(
+	moon_TextWrite* self,
+	const sf::FloatRect& old_bounds
+) {
+	sf::FloatRect new_bounds = self->text->getGlobalBounds();
+
+	float old_centerx = old_bounds.left + old_bounds.width * .5f;
+	float old_centery = old_bounds.top + old_bounds.height * .5f;
+
+	float new_centerx = new_bounds.left + new_bounds.width * .5f;
+	float new_centery = new_bounds.top + new_bounds.height * .5f;
+
+	moon_Text_move(
+		self->text,
+		old_centerx - new_centerx,
+		old_centery - new_centery
+	);
+}
 
 
 moon_TextWrite::moon_TextWrite(

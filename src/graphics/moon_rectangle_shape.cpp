@@ -77,6 +77,17 @@ moon_RectangleShape_get_size(const moon_RectangleShape* self) {
 	return {bounds.width, bounds.height};
 }
 
+moon_FloatRect
+moon_RectangleShape_get_world_bounds(const moon_RectangleShape* self) {
+	sf::FloatRect bounds = self->getGlobalBounds();
+	return {
+		self->m_position.x,
+		self->m_position.y,
+		bounds.width,
+		bounds.height
+	};
+}
+
 
 // Shape begin
 

@@ -60,6 +60,17 @@ moon_Sprite_get_size(const moon_Sprite* self) {
 	return {bounds.width, bounds.height};
 }
 
+moon_FloatRect
+moon_Sprite_get_world_bounds(const moon_Sprite* self) {
+	sf::FloatRect bounds = self->getGlobalBounds();
+	return {
+		self->m_position.x,
+		self->m_position.y,
+		bounds.width,
+		bounds.height
+	};
+}
+
 void
 moon_Sprite_set_texture(
 	moon_Sprite* self,
