@@ -20,7 +20,6 @@ enum {
 
 	// Window
 
-	moon_Destroyable_Event,
 	moon_Destroyable_VideoModesGen,
 
 	// Graphics

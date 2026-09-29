@@ -14,7 +14,7 @@
 
 #include "../../headers/window/Converters.hpp"
 
-#include "../../headers/window/EventStruct.hpp"
+#include "../../headers/window/EventConverter.hpp"
 
 
 #include "../../headers/graphics/moon_render_window.h"
@@ -109,9 +109,12 @@ moon_RenderWindow_poll_event(
 	moon_RenderWindow* self,
 	moon_Event* event
 ) {
-	return self->pollEvent(
-		*(static_cast<sf::Event*>(event))
-	);
+	sf::Event evt;
+	if (self->pollEvent(evt)) {
+		event_sf_to_moon(evt, event);
+		return 1;
+	}
+	return 0;
 }
 
 int
@@ -119,9 +122,12 @@ moon_RenderWindow_wait_event(
 	moon_RenderWindow* self,
 	moon_Event* event
 ) {
-	return self->waitEvent(
-		*(static_cast<sf::Event*>(event))
-	);
+	sf::Event evt;
+	if (self->waitEvent(evt)) {
+		event_sf_to_moon(evt, event);
+		return 1;
+	}
+	return 0;
 }
 
 moon_Vector2i

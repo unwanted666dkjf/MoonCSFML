@@ -25,7 +25,7 @@ int main() {
 
 	moon_VideoMode desktop_mode = moon_VideoMode_get_desktop_mode();
 
-	unsigned int fps 	= 60;
+	unsigned int fps 	= 600000;
 	unsigned int size 	= moon_StandardSizes_get_size(&desktop_mode);
 	unsigned int wnd_w 	= size * 18, wnd_h = size * 11;
 	float fps_k = 60.f / (float)((fps != 0) ? fps : 1.f);
@@ -68,11 +68,9 @@ int main() {
 			| moon_Window_Style_Close
 	);
 	moon_Destroyer_push_back(destroyer, wnd, moon_Destroyable_RenderWindow);
-	moon_RenderWindow_set_position(
-		wnd,
-		(desktop_mode.width - wnd_w) / 2,
-		(desktop_mode.height - wnd_h) / 2
-	);
+	unsigned int wnd_x = (unsigned int)((desktop_mode.width - wnd_w) * .5f);
+	unsigned int wnd_y = (unsigned int)((desktop_mode.height - wnd_h) * .5f);
+	moon_RenderWindow_set_position(wnd, wnd_x, wnd_y);
 	moon_RenderWindow_set_framerate_limit(wnd, fps);
 	moon_RenderWindow_set_icon(
 		wnd,
@@ -188,9 +186,9 @@ int main() {
 	moon_guiFpsCntr_set_style(fps_cntr, moon_Text_Style_Bold);
 
 	moon_Color bg_clr = moon_Colors_DarkPurple(255);
-	moon_Event* event = moon_Event_create();
+	moon_Event event;
+
 	moon_RenderStates* states = moon_RenderStates_default();
-	moon_Destroyer_push_back(destroyer, event, moon_Destroyable_Event);
 	moon_Destroyer_push_back(destroyer, states, moon_Destroyable_RenderStates);
 
 	moon_Music_set_loop(mus, 1);
@@ -212,17 +210,23 @@ int main() {
 			moon_Clock_delta(clock)
 		);
 
-		moon_Event_reset(event);
-		while (moon_RenderWindow_poll_event(wnd, event)) {
-			int evt_type = moon_Event_get_type(event);
-			if (evt_type == moon_Event_Type_Closed) {
+		moon_Event_reset(&event);
+		while (moon_RenderWindow_poll_event(wnd, &event)) {
+			if (event.type == moon_Event_Type_Closed) {
 				is_running = 0;
-			} else if (evt_type == moon_Event_Type_KeyPressed) {
-				int key = moon_Event_get_key_keycode(event);
+			} else if (event.type == moon_Event_Type_KeyPressed) {
+				int key = event.evt.key.keycode;
 				if (key == moon_Keyboard_Key_X) {
 					moon_SpriteTransform_flip(luna, 1, 0);
 				} else if (key == moon_Keyboard_Key_Y) {
 					moon_SpriteTransform_flip(luna, 0, 1);
+				}
+			} else if (event.type == moon_Event_Type_MouseButtonPressed) {
+				int button = event.evt.mouse_button.button;
+				if (button == moon_Mouse_Button_Left) {
+					moon_RenderWindow_set_position(wnd, 0, 0);
+				} else if (button == moon_Mouse_Button_Right) {
+					moon_RenderWindow_set_position(wnd, wnd_x, wnd_y);
 				}
 			}
 		}

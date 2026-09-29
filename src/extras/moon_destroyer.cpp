@@ -9,8 +9,6 @@
 #include "../../headers/system/moon_clock.h"
 
 
-#include "../../headers/window/moon_event.h"
-
 #include "../../headers/window/moon_video_modes_gen.h"
 
 
@@ -189,9 +187,6 @@ moon_Destroyer_kill(moon_Destroyable* victim) {
 			moon_Clock_destroy(static_cast<moon_Clock*>(body));
 			break;
 
-		case moon_Destroyable_Event:
-			moon_Event_destroy(static_cast<moon_Event*>(body));
-			break;
 		case moon_Destroyable_VideoModesGen:
 			moon_VideoModesGen_destroy(static_cast<moon_VideoModesGen*>(body));
 			break;

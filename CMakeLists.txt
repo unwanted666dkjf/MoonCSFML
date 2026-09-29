@@ -144,6 +144,7 @@ set(SOURCES
 	src/system/moon_strutils.cpp
 
 	src/window/Converters.cpp
+	src/window/EventConverter.cpp
 	src/window/moon_event.cpp
 	src/window/moon_mouse.cpp
 	src/window/moon_touch.cpp
