@@ -1,6 +1,9 @@
 Built/
 ExtraDeps/
 CMakeFiles/
+__pycache__/
+*.pyc
+*.pyo
 msg.txt
 msgs.txt
 build.ninja
