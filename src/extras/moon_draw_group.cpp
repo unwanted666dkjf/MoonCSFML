@@ -226,6 +226,41 @@ moon_DrawGroupable_draw(
 ) {
 	const void* body = drawable.body;
 	switch (drawable.type) {
+		case moon_Draw_Groupable_Sprite: {
+			const moon_Sprite* drawable = static_cast<const moon_Sprite*>(body);
+			moon_generic_draw<moon_Sprite>(
+				drawable, wnd, states, check_visibility
+			);
+			break;
+		}
+		case moon_Draw_Groupable_SlideAnimation: {
+			const moon_SlideAnimation* drawable = static_cast<const moon_SlideAnimation*>(body);
+			moon_generic_draw<moon_SlideAnimation>(
+				drawable, wnd, states, check_visibility
+			);
+			break;
+		}
+		case moon_Draw_Groupable_RectangleShape: {
+			const moon_RectangleShape* drawable = static_cast<const moon_RectangleShape*>(body);
+			moon_generic_draw<moon_RectangleShape>(
+				drawable, wnd, states, check_visibility
+			);
+			break;
+		}
+		case moon_Draw_Groupable_CircleShape: {
+			const moon_CircleShape* drawable = static_cast<const moon_CircleShape*>(body);
+			moon_generic_draw<moon_CircleShape>(
+				drawable, wnd, states, check_visibility
+			);
+			break;
+		}
+		case moon_Draw_Groupable_ConvexShape: {
+			const moon_ConvexShape* drawable = static_cast<const moon_ConvexShape*>(body);
+			moon_generic_draw<moon_ConvexShape>(
+				drawable, wnd, states, check_visibility
+			);
+			break;
+		}
 		case moon_Draw_Groupable_Text: {
 			const moon_Text* drawable = static_cast<const moon_Text*>(body);
 			moon_generic_draw<moon_Text>(
@@ -240,44 +275,9 @@ moon_DrawGroupable_draw(
 			);
 			break;
 		}
-		case moon_Draw_Groupable_Sprite: {
-			const moon_Sprite* drawable = static_cast<const moon_Sprite*>(body);
-			moon_generic_draw<moon_Sprite>(
-				drawable, wnd, states, check_visibility
-			);
-			break;
-		}
 		case moon_Draw_Groupable_TextWrite: {
 			const moon_TextWrite* drawable = static_cast<const moon_TextWrite*>(body);
 			moon_generic_draw<moon_TextWrite>(
-				drawable, wnd, states, check_visibility
-			);
-			break;
-		}
-		case moon_Draw_Groupable_ConvexShape: {
-			const moon_ConvexShape* drawable = static_cast<const moon_ConvexShape*>(body);
-			moon_generic_draw<moon_ConvexShape>(
-				drawable, wnd, states, check_visibility
-			);
-			break;
-		}
-		case moon_Draw_Groupable_CircleShape: {
-			const moon_CircleShape* drawable = static_cast<const moon_CircleShape*>(body);
-			moon_generic_draw<moon_CircleShape>(
-				drawable, wnd, states, check_visibility
-			);
-			break;
-		}
-		case moon_Draw_Groupable_RectangleShape: {
-			const moon_RectangleShape* drawable = static_cast<const moon_RectangleShape*>(body);
-			moon_generic_draw<moon_RectangleShape>(
-				drawable, wnd, states, check_visibility
-			);
-			break;
-		}
-		case moon_Draw_Groupable_SlideAnimation: {
-			const moon_SlideAnimation* drawable = static_cast<const moon_SlideAnimation*>(body);
-			moon_generic_draw<moon_SlideAnimation>(
 				drawable, wnd, states, check_visibility
 			);
 			break;
