@@ -23,6 +23,8 @@ extern "C" {
 
 #include "./moon_filelines.h"
 
+#include "./moon_collisions.h"
+
 #include "./moon_text_write.h"
 
 #include "./moon_destroyer.h"
@@ -30,6 +32,8 @@ extern "C" {
 #include "./moon_destroyable.h"
 
 #include "./moon_draw_group.h"
+
+#include "./moon_sprite_group.h"
 
 #include "./moon_draw_groupable.h"
 

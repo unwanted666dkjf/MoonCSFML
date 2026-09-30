@@ -13,6 +13,10 @@ extern "C" {
 #include <wchar.h>
 
 
+#define moon_utils_Abs(x) \
+	(((x) > 0) ? (x) : (-1 * (x)))
+
+
 /**
  * Custom 'printf'.
  * Used to print formatted output to the standard output

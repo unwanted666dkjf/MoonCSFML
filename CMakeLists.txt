@@ -188,6 +188,7 @@ set(SOURCES
 	src/extras/moon_path.c
 	src/extras/moon_pathgen.c
 	src/extras/moon_winstuff.c
+	src/extras/moon_collisions.c
 	src/extras/moon_file.cpp
 	src/extras/moon_filelines.cpp
 	src/extras/moon_destroyer.cpp
