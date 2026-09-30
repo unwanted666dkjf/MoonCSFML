@@ -167,7 +167,7 @@ moon_DrawGroup_push_front(
 );
 
 /**
- * Appends (copies) elements from the 'other' group to
+ * Appends (copies) elements(pointers) from the 'other' group to
  *the end of 'self' group.
  */
 MOON_CSFML_API void

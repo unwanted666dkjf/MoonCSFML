@@ -60,6 +60,8 @@
 
 #include "../../headers/extras/moon_draw_group.h"
 
+#include "../../headers/extras/moon_sprite_group.h"
+
 #include "../../headers/extras/moon_destroyable.h"
 
 #include "../../headers/extras/moon_gui_fpscntr.h"
@@ -264,6 +266,9 @@ moon_Destroyer_kill(moon_Destroyable* victim) {
 			break;
 		case moon_Destroyable_DrawGroup:
 			moon_DrawGroup_destroy(static_cast<moon_DrawGroup*>(body));
+			break;
+		case moon_Destroyable_SpriteGroup:
+			moon_SpriteGroup_destroy(static_cast<moon_SpriteGroup*>(body));
 			break;
 		case moon_Destroyable_guiFpsCntr:
 			moon_guiFpsCntr_destroy(static_cast<moon_guiFpsCntr*>(body));

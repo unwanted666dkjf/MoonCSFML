@@ -17,6 +17,11 @@ extern "C" {
 struct MOON_CSFML_API moon_SlideAnimation;
 
 
+/**
+ * Structure for creating simple sprite animations.
+ * In SFML there is another way to create animations,
+ *but I am former SDL user.
+ */
 typedef struct moon_SlideAnimation moon_SlideAnimation;
 
 
