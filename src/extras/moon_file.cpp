@@ -73,7 +73,9 @@ moon_File_open(
 
 void
 moon_File_close(moon_File* self) {
-	delete self;
+	if (self) {
+		delete self;
+	}
 }
 
 int

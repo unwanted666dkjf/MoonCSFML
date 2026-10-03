@@ -28,7 +28,7 @@ typedef struct moon_RenderStates moon_RenderStates;
 /**
  * Creates a default set of render states.
  * The default set defines:
- * \li the BlendAlph*a blend mode
+ * \li the BlendAlpha blend mode
  * \li the identity transform
  * \li a null texture
  * \li a null shader

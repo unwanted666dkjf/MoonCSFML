@@ -44,6 +44,16 @@ moon_SpriteGroup_destroy(moon_SpriteGroup* self) {
 	delete self;
 }
 
+void
+moon_SpriteGroup_set_color(
+	const moon_SpriteGroup* self,
+	const moon_Color* color
+) {
+	for (unsigned long i = 0UL; i < self->sprites.size(); i++) {
+		moon_Sprite_set_color(self->sprites[i], color);
+	}
+}
+
 moon_FloatRect
 moon_SpriteGroup_get_world_bounds(
 	const moon_SpriteGroup* self,

@@ -30,6 +30,7 @@ moon_Filelines_open(const char* filepath);
 
 /**
  * Closes stream and destroys object.
+ * If stream is not open('self' is NULL), does nothing.
  */
 MOON_CSFML_API void
 moon_Filelines_close(moon_Filelines* self);

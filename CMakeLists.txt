@@ -185,12 +185,14 @@ set(SOURCES
 	src/audio/moon_audio_capture_devices.cpp
 
 	src/extras/moon_utf8.c
+	src/extras/moon_jump.c
 	src/extras/moon_path.c
 	src/extras/moon_pathgen.c
 	src/extras/moon_winstuff.c
 	src/extras/moon_collisions.c
 	src/extras/moon_file.cpp
 	src/extras/moon_filelines.cpp
+	src/extras/moon_frect_lst.cpp
 	src/extras/moon_destroyer.cpp
 	src/extras/moon_destroyable.cpp
 	src/extras/moon_draw_group.cpp

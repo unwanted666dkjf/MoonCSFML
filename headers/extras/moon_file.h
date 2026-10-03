@@ -61,6 +61,7 @@ moon_File_open(
 
 /**
  * Closes streams and destroys file object.
+ * If 'self' is not open(NULL), does nothing.
  */
 MOON_CSFML_API void
 moon_File_close(moon_File* self);

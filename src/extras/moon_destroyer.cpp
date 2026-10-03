@@ -48,6 +48,8 @@
 #include "../../headers/audio/moon_audio_capture_devices.h"
 
 
+#include "../../headers/extras/moon_jump.h"
+
 #include "../../headers/extras/moon_file.h"
 
 #include "../../headers/extras/moon_filelines.h"
@@ -55,6 +57,8 @@
 #include "../../headers/extras/moon_pathgen.h"
 
 #include "../../headers/extras/moon_destroyer.h"
+
+#include "../../headers/extras/moon_frect_lst.h"
 
 #include "../../headers/extras/moon_text_write.h"
 
@@ -255,11 +259,17 @@ moon_Destroyer_kill(moon_Destroyable* victim) {
 		case moon_Destroyable_Pathgen:
 			moon_Pathgen_destroy(static_cast<moon_Pathgen*>(body));
 			break;
+		case moon_Destroyable_Jump:
+			moon_Jump_destroy(static_cast<moon_Jump*>(body));
+			break;
 		case moon_Destroyable_File:
 			moon_File_close(static_cast<moon_File*>(body));
 			break;
 		case moon_Destroyable_Filelines:
 			moon_Filelines_close(static_cast<moon_Filelines*>(body));
+			break;
+		case moon_Destroyable_FRectLst:
+			moon_FRectLst_destroy(static_cast<moon_FRectLst*>(body));
 			break;
 		case moon_Destroyable_TextWrite:
 			moon_TextWrite_destroy(static_cast<moon_TextWrite*>(body));

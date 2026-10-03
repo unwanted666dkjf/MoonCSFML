@@ -50,8 +50,10 @@ enum {
 
 	moon_Destroyable_Destroyer,			// lol
 	moon_Destroyable_Pathgen,
+	moon_Destroyable_Jump,
 	moon_Destroyable_File,
 	moon_Destroyable_Filelines,
+	moon_Destroyable_FRectLst,
 	moon_Destroyable_TextWrite,
 	moon_Destroyable_DrawGroup,
 	moon_Destroyable_SpriteGroup,

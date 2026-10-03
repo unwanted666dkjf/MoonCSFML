@@ -327,10 +327,10 @@ moon_CircleShape_set_scale(
 /**
  * Sets the local origin of the object.
  * The origin of an object defines the center point for
- * all transformations (position, scale, rotation).
+ *all transformations (position, scale, rotation).
  * The coordinates of this point must be relative to the
- * top-left corner of the object, and ignore all
- * transformations (position, scale, rotation).
+ *top-left corner of the object, and ignore all
+ *transformations (position, scale, rotation).
  * The default origin of a transformable object is (0, 0).
  */
 MOON_CSFML_API void

@@ -5,7 +5,7 @@
 #include "../../headers/graphics/moon_view.h"
 
 
-static const moon_FloatRect DefaultViewRect = {0, 0, 1000, 1000};
+static const moon_FloatRect DefaultViewRect = {0.f, 0.f, 1000.f, 1000.f};
 
 
 moon_View
@@ -91,8 +91,8 @@ moon_View_reset(
 	moon_View* self,
 	const moon_FloatRect* rectangle
 ) {
-	self->center.x = rectangle->left + rectangle->width / 2.f;
-	self->center.y = rectangle->top + rectangle->height / 2.f;
+	self->center.x = rectangle->left + rectangle->width * .5f;
+	self->center.y = rectangle->top + rectangle->height * .5f;
 	self->size.x   = rectangle->width;
 	self->size.y   = rectangle->height;
 	self->rotation = 0.f;

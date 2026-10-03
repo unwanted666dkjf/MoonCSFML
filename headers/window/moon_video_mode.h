@@ -10,7 +10,7 @@ extern "C" {
 #endif
 
 
-#define moon_VideoMode_DefaultBitsPerPixel 32
+#define moon_VideoMode_DefaultBitsPerPixel (32)
 
 
 /**

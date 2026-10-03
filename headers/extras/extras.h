@@ -13,6 +13,8 @@ extern "C" {
 
 #include "./moon_utf8.h"
 
+#include "./moon_jump.h"
+
 #include "./moon_path.h"
 
 #include "./moon_pathgen.h"
@@ -22,6 +24,8 @@ extern "C" {
 #include "./moon_file.h"
 
 #include "./moon_filelines.h"
+
+#include "./moon_frect_lst.h"
 
 #include "./moon_collisions.h"
 

@@ -44,6 +44,20 @@ MOON_CSFML_API void
 moon_SpriteGroup_destroy(moon_SpriteGroup* self);
 
 /**
+ * Sets the global color of sprites in the group.
+ *
+ * This color is modulated (multiplied) with the sprite's
+ *texture. It can be used to colorize the sprite, or change
+ *its global opacity.
+ * By default, the sprite's color is opaque white.
+ */
+MOON_CSFML_API void
+moon_SpriteGroup_set_color(
+	const moon_SpriteGroup* self,
+	const moon_Color* color
+);
+
+/**
  * Returns world bounds of the object at index.
  * If index out of bounds, behaviour is undefined.
  *
@@ -377,7 +391,7 @@ moon_SpriteGroup_extend(
  * Returns a slice of this group.
  * Slicing is similar(but not the same) to python slicing.
  * Indexes can be negative, in that case
- *index will be recomputed('index' + 'vertex_count').
+ *index will be recomputed('index' + 'length').
  * No bound checking.
  * If step is 0, returns empty slice.
  * If step is negative, elements will be in reverse and stop

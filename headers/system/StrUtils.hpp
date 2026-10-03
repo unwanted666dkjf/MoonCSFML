@@ -45,8 +45,8 @@ StrT* moon_strslice(
 		return moon_strnull<StrT>();
 	}
 	double length = std::abs(
-		(1. * stop - 1. * start)
-		/ 1. * step
+		(static_cast<double>(stop) - static_cast<double>(start))
+		/ static_cast<double>(step)
 	);
 	unsigned long expected_length = static_cast<unsigned long>(length);
 	if (static_cast<double>(expected_length) < length) {

@@ -180,7 +180,7 @@ moon_DrawGroup_extend(
  * Returns a slice of this group.
  * Slicing is similar(but not the same) to python slicing.
  * Indexes can be negative, in that case
- *index will be recomputed('index' + 'vertex_count').
+ *index will be recomputed('index' + 'length').
  * No bound checking.
  * If step is 0, returns empty slice.
  * If step is negative, elements will be in reverse and stop

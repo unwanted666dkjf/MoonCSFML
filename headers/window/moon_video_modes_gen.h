@@ -15,11 +15,8 @@ struct MOON_CSFML_API moon_VideoModesGen;
 
 /**
  * Generates available video modes.
- * On Linux, depth per pixel for modes will
- *always be default. Uses Xrandr.
- * On Windows may work faster. Even if Windows sucks,
- *winapi is cool.
- * Alternative to sf::VideoMode::getFullscreenModes().
+ * Wrapper of sf::VideoMode::getFullscreenModes().
+ * First time it was completely different...
  */
 typedef struct moon_VideoModesGen moon_VideoModesGen;
 

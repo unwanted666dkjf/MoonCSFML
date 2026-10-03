@@ -81,9 +81,8 @@ moon_guiFpsCntr_update(moon_guiFpsCntr* self) {
 	if (!moon_Clock_is_running(self->clock)) {
 		return;
 	}
-	moon_Clock_wait(self->clock);
 	float elapsed_secs = moon_Time_as_seconds(
-		moon_Clock_get_elapsed_time(self->clock)
+		moon_Clock_wait(self->clock)
 	);
 	if (elapsed_secs < self->update_time) {
 		return;

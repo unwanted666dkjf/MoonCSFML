@@ -67,7 +67,7 @@ moon_BlendMode_is_eq(
 );
 
 /**
- * Returns 1 if blend modes are equal,
+ * Returns 1 if blend modes are not equal,
  *0 otherwise.
  * Blend modes are equal if their members
  *are equal.

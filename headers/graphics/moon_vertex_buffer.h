@@ -151,7 +151,7 @@ moon_VertexBuffer_update(
  *\p offset is specified as the number of vertices to skip
  *from the beginning of the buffer.
  *
- * If \p offset is 0 and \p vertexCount is equal to the size of
+ * If \p offset is 0 and \p vertex_count is equal to the size of
  *the currently created buffer, its whole contents are replaced.
  *
  * If \p offset is 0 and \p vertex_count is greater than the

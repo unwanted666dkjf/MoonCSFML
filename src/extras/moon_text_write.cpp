@@ -101,13 +101,12 @@ moon_TextWrite_update(moon_TextWrite* self) {
 	if (!moon_Clock_is_running(self->clock)) {
 		return;
 	}
-	moon_Clock_wait(self->clock);
 	if (self->cur_ind >= self->text_to_type.getSize()) {
 		moon_Clock_stop(self->clock);
 		return;
 	}
 	float elapsed_seconds = moon_Time_as_seconds(
-		moon_Clock_get_elapsed_time(self->clock)
+		moon_Clock_wait(self->clock)
 	);
 	if (elapsed_seconds < self->typing_speed) {
 		return;
@@ -399,7 +398,7 @@ moon_TextWrite::moon_TextWrite(
 	unsigned int v_character_size
 ) {
 	text = moon_Text_createA(
-		"0",
+		"",
 		v_font,
 		v_character_size
 	);

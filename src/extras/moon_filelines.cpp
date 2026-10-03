@@ -37,7 +37,9 @@ moon_Filelines_open(const char* filepath) {
 
 void
 moon_Filelines_close(moon_Filelines* self) {
-	delete self;
+	if (self) {
+		delete self;
+	}
 }
 
 int
