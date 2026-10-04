@@ -1,3 +1,9 @@
+#include <SFML/Graphics/Texture.hpp>
+
+
+
+#include "../../headers/extras/moon_useful_funcs.h"
+
 #include "../../headers/extras/moon_sprite_transform.h"
 
 
@@ -27,6 +33,25 @@ moon_SpriteTransform_flip(
 	sprite->move(
 		old_rect.left - new_rect.left,
 		old_rect.top - new_rect.top
+	);
+}
+
+void
+moon_SpriteTransform_scale(
+	moon_Sprite* sprite,
+	float width, float height,
+	int keep_w,  int keep_h
+) {
+	const sf::Texture* texture 	= sprite->getTexture();
+	sf::Vector2u texture_size 	= texture->getSize();
+	moon_Vector2f size = moon_new_size(
+		texture_size.x, 	texture_size.y,
+		width, 				height,
+		keep_w,		 		keep_h
+	);
+	sprite->setScale(
+		size.x / static_cast<float>(texture_size.x),
+		size.y / static_cast<float>(texture_size.y)
 	);
 }
 
@@ -61,12 +86,43 @@ moon_SpriteTransform_set_rotation(
 }
 
 void
+moon_SpriteTransform_set_movepos(
+	moon_Sprite* sprite,
+	float left, float top
+) {
+	sf::FloatRect bounds = sprite->getGlobalBounds();
+	sprite->move(
+		left - bounds.left,
+		top  - bounds.top
+	);
+}
+
+void
 moon_SpriteTransform_copy_transform(
 	moon_Sprite* target,
 	const moon_Sprite* source
 ) {
-	target->setPosition(	source->getPosition());
 	target->setRotation(	source->getRotation());
 	target->setScale(		source->getScale());
 	target->setOrigin(		source->getOrigin());
+	target->setPosition(	source->getPosition());
+}
+
+void
+moon_SpriteTransform_apply_orient(
+	moon_Sprite* target,
+	const moon_Sprite* source
+) {
+	float old_rotation = source->getRotation();
+	if (old_rotation != target->getRotation()) {
+		target->setRotation(old_rotation);
+	}
+	const sf::Vector2f& old_pos = source->getPosition();
+	const sf::Vector2f& nxt_pos = target->getPosition();
+	if (nxt_pos != old_pos) {
+		target->setPosition(old_pos.x, old_pos.y);
+		float old_height = source->getGlobalBounds().height;
+		float nxt_height = target->getGlobalBounds().height;
+		target->move(0.f, old_height - nxt_height);
+	}
 }

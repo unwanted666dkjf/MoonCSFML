@@ -12,6 +12,8 @@
 
 #include "../../headers/extras/guiFpsCntrStruct.hpp"
 
+#include "../../headers/extras/SlideShowStruct.hpp"
+
 #include "../../headers/extras/SlideAnimationStruct.hpp"
 
 
@@ -229,6 +231,13 @@ moon_DrawGroupable_draw(
 		case moon_Draw_Groupable_Sprite: {
 			const moon_Sprite* drawable = static_cast<const moon_Sprite*>(body);
 			moon_generic_draw<moon_Sprite>(
+				drawable, wnd, states, check_visibility
+			);
+			break;
+		}
+		case moon_Draw_Groupable_SlideShow: {
+			const moon_SlideShow* drawable = static_cast<const moon_SlideShow*>(body);
+			moon_generic_draw<moon_SlideShow>(
 				drawable, wnd, states, check_visibility
 			);
 			break;

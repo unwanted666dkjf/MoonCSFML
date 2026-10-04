@@ -70,6 +70,8 @@
 
 #include "../../headers/extras/moon_gui_fpscntr.h"
 
+#include "../../headers/extras/moon_slide_show.h"
+
 #include "../../headers/extras/moon_slide_animation.h"
 
 
@@ -282,6 +284,9 @@ moon_Destroyer_kill(moon_Destroyable* victim) {
 			break;
 		case moon_Destroyable_guiFpsCntr:
 			moon_guiFpsCntr_destroy(static_cast<moon_guiFpsCntr*>(body));
+			break;
+		case moon_Destroyable_SlideShow:
+			moon_SlideShow_destroy(static_cast<moon_SlideShow*>(body));
 			break;
 		case moon_Destroyable_SlideAnimation:
 			moon_SlideAnimation_destroy(static_cast<moon_SlideAnimation*>(body));

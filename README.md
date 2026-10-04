@@ -4,8 +4,13 @@
 ## About
 
 MoonCSFML is a high-performance binding of 
-[SFML2.6.2](https://github.com/SFML/SFML/releases/tag/2.6.2) for C. 
-The goal was to make C game development a less painful experience.<br>
+[SFML2.6.2](https://github.com/SFML/SFML/releases/tag/2.6.2) for C.<br>
+The goal is to make C game development a less painful experience.<br><br>
+However, in it's current state, more of a focus is on optimizing the use of 
+the library in other languages via ffi.<br>
+Optimizing for people, not for bots.<br>
+Take inspiration for improvements from pygame and Adobe CS6.<br>
+
 
 When creating this library, I took into account the experience of 
 creating the previous one: [SSW_SFML3](https://github.com/unwanted666dkjf/SSW_SFML3).<br>
@@ -14,7 +19,7 @@ This project is independent and is in no way related to the official one:
 [CSFML](https://github.com/SFML/csfml).<br>
 
 Why 'Moon'?
-I developed this library mostly at night.<br>
+I develop this library mainly at night.<br>
 
 
 ## Notes

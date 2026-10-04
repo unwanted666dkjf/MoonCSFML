@@ -140,7 +140,7 @@ moon_DrawGroup_draw(
  * No checks performed. If object is not
  *groupable, behaviour is undefined.
  * Groupable: Text, Sprite, ConvexShape, CircleShape,
- *RectangleShape, SlideAnimation, guiFpsCntr, TextWrite.
+ *RectangleShape, SlideShow, SlideAnimation, guiFpsCntr, TextWrite.
  * O(1)
  */
 MOON_CSFML_API void
@@ -156,7 +156,7 @@ moon_DrawGroup_push_back(
  * No checks performed. If object is not
  *groupable, behaviour is undefined.
  * Groupable: Text, Sprite, ConvexShape, CircleShape,
- *RectangleShape, SlideAnimation, guiFpsCntr, TextWrite.
+ *RectangleShape, SlideShow, SlideAnimation, guiFpsCntr, TextWrite.
  * O(n)
  */
 MOON_CSFML_API void

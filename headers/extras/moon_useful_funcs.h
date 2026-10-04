@@ -113,6 +113,8 @@ moon_get_cosine_wave_position(
  * If 'keep_h' is not 0, it will preserve the height-to-width ratio.
  * If 'keep_w' and 'keep_h' are not 0, both will be ignored.
  * If 'keep_w' and 'keep_h' are 0, both will be ignored.
+ * Morever, 'new_width' can be set to zero if 'keep_h' is
+ *equal to 1. The same is true for 'new_height'.
  */
 MOON_CSFML_API moon_Vector2f
 moon_new_size(

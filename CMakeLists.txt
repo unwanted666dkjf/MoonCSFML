@@ -201,6 +201,7 @@ set(SOURCES
 	src/extras/moon_sprite_group.cpp
 	src/extras/moon_useful_funcs.cpp
 	src/extras/moon_standard_sizes.cpp
+	src/extras/moon_slide_show.cpp
 	src/extras/moon_slide_animation.cpp
 	src/extras/moon_sprite_transform.cpp
 )

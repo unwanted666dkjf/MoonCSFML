@@ -18,6 +18,7 @@ enum {
 	moon_Draw_Groupable_ConvexShape,
 	moon_Draw_Groupable_CircleShape,
 	moon_Draw_Groupable_RectangleShape,
+	moon_Draw_Groupable_SlideShow,
 	moon_Draw_Groupable_SlideAnimation
 };
 

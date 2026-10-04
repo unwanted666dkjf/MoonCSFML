@@ -53,7 +53,7 @@ void collisions_test();
 
 
 int main() {
-	collisions_test();
+	example();
 	return 0;
 }
 
@@ -314,7 +314,7 @@ void example() {
 	unsigned int fps 	= 60;
 	unsigned int size 	= moon_StandardSizes_get_size(&desktop_mode);
 	unsigned int wnd_w 	= size * 18, wnd_h = size * 11;
-	float fps_k = 60.f / (float)((fps != 0) ? fps : 1.f);
+//	float fps_k = 60.f / (float)((fps != 0) ? fps : 1.f);
 
 	moon_Music* mus = moon_Music_create();
 	moon_Destroyer_push_back(destroyer, mus, moon_Destroyable_Music);
@@ -395,12 +395,13 @@ void example() {
 	moon_Angle sprite_rot = 0.f;
 
 	moon_Texture* eye_textures[NUM_EYE_TEXTURES];
+	moon_Vector2f eye_size1 = {0.f, size * 2.f};
+	moon_Vector2f eye_size2 = {0.f, size * 3.5f};
+/**
 	float anim_speed = .15f * fps_k;
 	if (anim_speed <= 0.f) {
 		anim_speed = 0.05f;
 	}
-	moon_Vector2f eye_size1 = {0.f, size * 2.f};
-	moon_Vector2f eye_size2 = {0.f, size * 3.5f};
 	moon_SlideAnimation* animation = moon_SlideAnimation_create(
 		NUM_EYE_TEXTURES,			// initial size
 		eye_size1.x, eye_size1.y,	// width, height
@@ -409,6 +410,15 @@ void example() {
 	);
 	moon_DrawGroup_push_back(draw_group, animation, moon_Draw_Groupable_SlideAnimation);
 	moon_Destroyer_push_back(destroyer, animation, moon_Destroyable_SlideAnimation);
+*/
+	moon_SlideShow* animation = moon_SlideShow_create(
+		NUM_EYE_TEXTURES,			// initial size
+		eye_size1.x, eye_size1.y,	// width, height
+		0, 	 1,						// fixed_w, fixed_h
+		.15f						// seconds per frame
+	);
+	moon_DrawGroup_push_back(draw_group, animation, moon_Draw_Groupable_SlideShow);
+	moon_Destroyer_push_back(destroyer, animation, moon_Destroyable_SlideShow);
 	unsigned long eye_ind = 0UL;
 	const char* textures_path = "./Assets/LukasEye";
 	moon_Pathgen* pathgen = moon_Pathgen_create(textures_path);
@@ -436,7 +446,8 @@ void example() {
 			);
 			goto cleanup;
 		} else {
-			moon_SlideAnimation_push_back(animation, eye_textures[eye_ind]);
+//			moon_SlideAnimation_push_back(animation, eye_textures[eye_ind]);
+			moon_SlideShow_push_back(animation, eye_textures[eye_ind]);
 			eye_ind++;
 		}
 	}
@@ -537,7 +548,8 @@ void example() {
 			sprite_rot 	= elapsed_seconds;
 		}
 		moon_SpriteTransform_rotate(luna, sprite_rot);
-		moon_SlideAnimation_rotate(animation, eye_rot);
+//		moon_SlideAnimation_rotate(animation, eye_rot);
+		moon_SlideShow_rotate(animation, eye_rot);
 
 		if (elapsed_seconds >= 5.f) {
 			moon_Clock_restart(clock);
@@ -545,14 +557,19 @@ void example() {
 			wnd_speed *= -1;
 			moon_SpriteTransform_set_rotation(luna, sprite_rot);
 			if (moon_random(0, 1)) {
-				moon_SlideAnimation_reverse(animation);
+//				moon_SlideAnimation_reverse(animation);
+				moon_SlideShow_reverse(animation);
 			}
 			if (moon_random(0, 1)) {
-				moon_SlideAnimation_flip(animation, 1, 0);
-				moon_SlideAnimation_resize(animation, eye_size1.x, eye_size1.y);
+//				moon_SlideAnimation_flip(animation, 1, 0);
+//				moon_SlideAnimation_resize(animation, eye_size1.x, eye_size1.y);
+				moon_SlideShow_flip(animation, 1, 0);
+				moon_SlideShow_resize(animation, eye_size1.x, eye_size1.y);
 			} else {
-				moon_SlideAnimation_flip(animation, 0, 1);
-				moon_SlideAnimation_resize(animation, eye_size2.x, eye_size2.y);
+//				moon_SlideAnimation_flip(animation, 0, 1);
+//				moon_SlideAnimation_resize(animation, eye_size2.x, eye_size2.y);
+				moon_SlideShow_flip(animation, 0, 1);
+				moon_SlideShow_resize(animation, eye_size2.x, eye_size2.y);
 			}
 		}
 
@@ -566,24 +583,30 @@ void example() {
 		}
 		moon_RenderWindow_move(wnd, wnd_dx, 0);
 
-		moon_SlideAnimation_update(animation);
+//		moon_SlideAnimation_update(animation);
+		moon_SlideShow_update(animation);
 
 		float eye_offset = eye_speed * delta_seconds;
 		int eye_dir = moon_random(0, 3);
 		switch (eye_dir) {
 			case 0:
-				moon_SlideAnimation_move(animation, eye_offset, 0.f);
+//				moon_SlideAnimation_move(animation, eye_offset, 0.f);
+				moon_SlideShow_move(animation, eye_offset, 0.f);
 				break;
 			case 1:
-				moon_SlideAnimation_move(animation, -eye_offset, 0.f);
+//				moon_SlideAnimation_move(animation, -eye_offset, 0.f);
+				moon_SlideShow_move(animation, -eye_offset, 0.f);
 				break;
 			case 2:
-				moon_SlideAnimation_move(animation, 0.f, eye_offset);
+//				moon_SlideAnimation_move(animation, 0.f, eye_offset);
+				moon_SlideShow_move(animation, 0.f, eye_offset);
 				break;
 			default:
-				moon_SlideAnimation_move(animation, 0.f, -eye_offset);
+//				moon_SlideAnimation_move(animation, 0.f, -eye_offset);
+				moon_SlideShow_move(animation, 0.f, -eye_offset);
 		}
-		moon_FloatRect eye_bounds = moon_SlideAnimation_get_global_bounds(animation);
+//		moon_FloatRect eye_bounds = moon_SlideAnimation_get_global_bounds(animation);
+		moon_FloatRect eye_bounds = moon_SlideShow_get_global_bounds(animation);
 
 		moon_FloatRect luna_bounds = moon_Sprite_get_global_bounds(luna);
 		moon_FloatRect intersection = moon_FloatRect_get_intersection(
@@ -594,22 +617,28 @@ void example() {
 			int corner = moon_random(0, 3);
 			switch (corner) {
 				case 0:
-					moon_SlideAnimation_set_position(animation, 0, 0);
+//					moon_SlideAnimation_set_position(animation, 0, 0);
+					moon_SlideShow_set_position(animation, 0, 0);
 					break;
 				case 1:
-					moon_SlideAnimation_set_position(animation, wnd_w, 0);
+//					moon_SlideAnimation_set_position(animation, wnd_w, 0);
+					moon_SlideShow_set_position(animation, wnd_w, 0);
 					break;
 				case 2:
-					moon_SlideAnimation_set_position(animation, 0, wnd_h);
+//					moon_SlideAnimation_set_position(animation, 0, wnd_h);
+					moon_SlideShow_set_position(animation, 0, wnd_h);
 					break;
 				default:
-					moon_SlideAnimation_set_position(animation, wnd_w, wnd_h);
+//					moon_SlideAnimation_set_position(animation, wnd_w, wnd_h);
+					moon_SlideShow_set_position(animation, wnd_w, wnd_h);
 			}
 		}
 
-		eye_bounds = moon_SlideAnimation_get_global_bounds(animation);
+//		eye_bounds = moon_SlideAnimation_get_global_bounds(animation);
+		eye_bounds = moon_SlideShow_get_global_bounds(animation);
 		moon_Vector2f eye_pos = moon_in_area_pos(&eye_bounds, &wnd_rect);
-		moon_SlideAnimation_set_position(animation, eye_pos.x, eye_pos.y);
+//		moon_SlideAnimation_set_position(animation, eye_pos.x, eye_pos.y);
+		moon_SlideShow_set_position(animation, eye_pos.x, eye_pos.y);
 
 		moon_TextWrite_update(text);
 		moon_guiFpsCntr_update(fps_cntr);

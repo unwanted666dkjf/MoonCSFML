@@ -1,5 +1,3 @@
-#include "../../headers/extras/moon_useful_funcs.h"
-
 #include "../../headers/extras/moon_slide_animation.h"
 
 #include "../../headers/extras/moon_sprite_transform.h"
@@ -20,12 +18,6 @@ static void
 moon_SlideAnimation_resize_sprite(
 	const moon_SlideAnimation* self,
 	moon_Sprite* sprite
-);
-
-static void
-moon_SlideAnimation_apply_nxt(
-	const moon_Sprite* current,
-	moon_Sprite* next
 );
 
 static moon_Sprite*
@@ -136,7 +128,7 @@ moon_SlideAnimation_update(moon_SlideAnimation* self) {
 		return 0;
 	}
 
-	moon_SlideAnimation_apply_nxt(current, next);
+	moon_SpriteTransform_apply_orient(next, current);
 
 	return 1;
 }
@@ -168,6 +160,20 @@ moon_SlideAnimation_set_rotation(
 }
 
 int
+moon_SlideAnimation_set_color(
+	moon_SlideAnimation* self,
+	const moon_Color* color
+) {
+	if (self->sprites.empty()) {
+		return 0;
+	}
+	for (unsigned long i = 0UL; i < self->sprites.size(); i++) {
+		moon_Sprite_set_color(&self->sprites[i], color);
+	}
+	return 1;
+}
+
+int
 moon_SlideAnimation_move(
 	moon_SlideAnimation* self,
 	float dx, float dy
@@ -189,11 +195,7 @@ moon_SlideAnimation_set_position(
 	if (!current) {
 		return 0;
 	}
-	moon_FloatRect bounds = moon_Sprite_get_global_bounds(current);
-	current->move(
-		left - bounds.left,
-		top  - bounds.top
-	);
+	moon_SpriteTransform_set_movepos(current, left, top);
 	return 1;
 }
 
@@ -224,7 +226,7 @@ moon_SlideAnimation_reverse(moon_SlideAnimation* self) {
 	}
 	moon_vector_reverse<moon_Sprite>(self->sprites);
 	moon_Sprite* next = moon_SlideAnimation_current(self);
-	moon_SlideAnimation_apply_nxt(current, next);
+	moon_SpriteTransform_apply_orient(next, current);
 }
 
 void
@@ -315,36 +317,11 @@ moon_SlideAnimation_resize_sprite(
 	const moon_SlideAnimation* self,
 	moon_Sprite* sprite
 ) {
-	const sf::Texture* texture = sprite->getTexture();
-	sf::Vector2u texture_size = texture->getSize();
-	moon_Vector2f size = moon_new_size(
-		texture_size.x, 	texture_size.y,
+	moon_SpriteTransform_scale(
+		sprite,
 		self->width, 		self->height,
 		self->fixed_w, 		self->fixed_h
 	);
-	sprite->setScale(
-		size.x / texture_size.x,
-		size.y / texture_size.y
-	);
-}
-
-void
-moon_SlideAnimation_apply_nxt(
-	const moon_Sprite* current,
-	moon_Sprite* next
-) {
-	float old_rotation = current->getRotation();
-	if (old_rotation != next->getRotation()) {
-		next->setRotation(old_rotation);
-	}
-	const sf::Vector2f& old_pos = current->getPosition();
-	const sf::Vector2f& nxt_pos = next->getPosition();
-	if (nxt_pos != old_pos) {
-		next->setPosition(old_pos.x, old_pos.y);
-		float old_height = current->getGlobalBounds().height;
-		float nxt_height = next->getGlobalBounds().height;
-		next->move(0.f, old_height - nxt_height);
-	}
 }
 
 moon_Sprite*

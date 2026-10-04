@@ -58,6 +58,7 @@ enum {
 	moon_Destroyable_DrawGroup,
 	moon_Destroyable_SpriteGroup,
 	moon_Destroyable_guiFpsCntr,
+	moon_Destroyable_SlideShow,
 	moon_Destroyable_SlideAnimation
 };
 
