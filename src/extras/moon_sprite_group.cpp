@@ -78,6 +78,24 @@ moon_SpriteGroup_get_global_bounds(
 	return moon_Sprite_get_global_bounds(self->sprites[index]);
 }
 
+moon_FRectLst*
+moon_SpriteGroup_get_rectangles(
+	const moon_SpriteGroup* self,
+	int as_global_bounds
+) {
+	moon_FRectLst* rects = moon_FRectLst_create(self->sprites.size());
+	for (unsigned long i = 0UL; i < self->sprites.size(); i++) {
+		if (as_global_bounds) {
+			moon_FloatRect bounds = moon_Sprite_get_global_bounds(self->sprites[i]);
+			moon_FRectLst_push_back(rects, &bounds);
+		} else {
+			moon_FloatRect bounds = moon_Sprite_get_local_bounds(self->sprites[i]);
+			moon_FRectLst_push_back(rects, &bounds);
+		}
+	}
+	return rects;
+}
+
 // moon_SpriteTransform begin.
 
 void
@@ -332,6 +350,15 @@ moon_SpriteGroup_get_slice(
 }
 
 // DrawGroup end.
+
+
+moon_Sprite*
+moon_SpriteGroup_get(
+	const moon_SpriteGroup* self,
+	unsigned long index
+) {
+	return self->sprites[index];
+}
 
 
 moon_SpriteGroup::moon_SpriteGroup(

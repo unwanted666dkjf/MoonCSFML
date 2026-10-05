@@ -273,6 +273,20 @@ MOON_CSFML_API moon_Vector2f
 moon_SlideShow_get_position(const moon_SlideShow* self);
 
 /**
+ * Returns the current scale of the current sprite.
+ * If animation has no sprites, returns {0, 0}.
+ */
+MOON_CSFML_API moon_Vector2f
+moon_SlideShow_get_scale(const moon_SlideShow* self);
+
+/**
+ * Returns copy of the global color of the current sprite.
+ * If animation has no sprites, returns opaque black.
+ */
+MOON_CSFML_API moon_Color
+moon_SlideShow_get_color(const moon_SlideShow* self);
+
+/**
  * Returns the local bounding rectangle of the
  *current animation sprite.
  * If there is no sprites, returns empty rectangle.

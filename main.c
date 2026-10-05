@@ -51,15 +51,181 @@ void example();
 
 void collisions_test();
 
+void sprite_collide_test();
+
 
 int main() {
-	example();
+	sprite_collide_test();
 	return 0;
 }
 
 
 // cmake .. -DCMAKE_BUILD_TYPE=Release
 // cmake --build . --config Release --verbose -j $(nproc)
+
+
+void sprite_collide_test() {
+	moon_Destroyer* destroyer = moon_Destroyer_create(15UL);
+	moon_SpriteGroup* blocks = moon_SpriteGroup_create(1, 100UL);
+	moon_Destroyer_push_back(destroyer, blocks, moon_Destroyable_SpriteGroup);
+
+	moon_VideoMode desktop_mode = moon_VideoMode_get_desktop_mode();
+
+	unsigned int fps 	= 60;
+	unsigned int size 	= moon_StandardSizes_get_size(&desktop_mode);
+	unsigned int wnd_w 	= size * 18, wnd_h = size * 11;
+	//	float fps_k = 60.f / (float)((fps != 0) ? fps : 1.f);
+	float block_size = (float)size;
+
+	const char* block_texturep = "./Assets/download.jpg";
+	moon_Texture* block_texture = moon_Texture_create();
+	moon_Destroyer_push_back(destroyer, block_texture, moon_Destroyable_Texture);
+	if (!moon_Texture_load_from_file(block_texture, block_texturep)) {
+		moon_printf("Failed to load texture from %s\n", block_texturep);
+		goto cleanup;
+	}
+	moon_Vector2u block_texture_size = moon_Texture_get_size(block_texture);
+	float block_kx = block_size / ((float)block_texture_size.x);
+	float block_ky = block_size / ((float)block_texture_size.y);
+
+	for (float blocks_top = 0.f; blocks_top < (float)wnd_h; blocks_top += block_size) {
+		for (float blocks_left = 0.f; blocks_left < (float)wnd_w; blocks_left += block_size) {
+			moon_Sprite* block = moon_Sprite_create(block_texture);
+			moon_Destroyer_push_back(destroyer, block, moon_Destroyable_Sprite);
+			moon_SpriteGroup_push_back(blocks, block);
+			moon_Sprite_set_scale(block, block_kx, block_ky);
+			moon_Sprite_set_position(block, blocks_left, blocks_top);
+		}
+	}
+
+	moon_Sprite* player = moon_Sprite_create(block_texture);
+	moon_Destroyer_push_back(destroyer, player, moon_Destroyable_Sprite);
+	moon_Sprite_set_scale(player, block_kx, block_ky);
+	moon_Sprite_set_position(player, 0.f, 0.f);
+	float player_speed = block_size * 3.5f;
+
+	moon_Image* wnd_icon = moon_Image_create();
+	moon_Destroyer_push_back(destroyer, wnd_icon, moon_Destroyable_Image);
+	if (!moon_Image_load(wnd_icon, "./Assets/luna_icon.png")) {
+		moon_printf("Could not load icon!\n");
+		goto cleanup;
+	}
+	moon_Vector2u icon_size = moon_Image_get_size(wnd_icon);
+
+	moon_RenderWindow* wnd = moon_RenderWindow_createA(
+		wnd_w, wnd_h,
+		desktop_mode.bits_per_pixel,
+		"MoonCSFML",
+		moon_Window_Style_Titlebar
+			| moon_Window_Style_Close
+	);
+	moon_Destroyer_push_back(destroyer, wnd, moon_Destroyable_RenderWindow);
+	unsigned int wnd_x = (unsigned int)((desktop_mode.width - wnd_w) * .5f);
+	unsigned int wnd_y = (unsigned int)((desktop_mode.height - wnd_h) * .5f);
+	moon_RenderWindow_set_position(wnd, wnd_x, wnd_y);
+	moon_RenderWindow_set_framerate_limit(wnd, fps);
+	moon_RenderWindow_set_icon(
+		wnd,
+		icon_size.x, icon_size.y,
+		wnd_icon
+	);
+
+	moon_Color bg_clr = moon_Colors_DarkPurple(255);
+	moon_Event event;
+
+	moon_RenderStates* states = moon_RenderStates_default();
+	moon_Destroyer_push_back(destroyer, states, moon_Destroyable_RenderStates);
+
+	moon_Font* font = moon_Font_create();
+	const char* fontp = "./Assets/monsters.otf";
+	moon_Destroyer_push_back(destroyer, font, moon_Destroyable_Font);
+	if (!moon_Font_load(font, fontp)) {
+		moon_printf("Could not load font from %s\n", fontp);
+		goto cleanup;
+	}
+	unsigned int fnt_size = (unsigned int)(size * 1.25f);
+	moon_Color cntr_color = moon_Colors_Black(255);
+	moon_guiFpsCntr* fps_cntr = moon_guiFpsCntr_create_ex(
+		2, .15f, font, fnt_size, &cntr_color
+	);
+	moon_Destroyer_push_back(destroyer, fps_cntr, moon_Destroyable_guiFpsCntr);
+	moon_guiFpsCntr_set_position(fps_cntr, wnd_w - fnt_size, 0.f);
+	moon_guiFpsCntr_set_style(fps_cntr, moon_Text_Style_Bold);
+
+	moon_Clock* clock = moon_Clock_create();
+	moon_Destroyer_push_back(destroyer, clock, moon_Destroyable_Clock);
+	moon_Clock_start(clock);
+	moon_guiFpsCntr_start(fps_cntr);
+	int is_running = moon_RenderWindow_is_open(wnd);
+	while (is_running) {
+		moon_Event_reset(&event);
+		while (moon_RenderWindow_poll_event(wnd, &event)) {
+			if (event.type == moon_Event_Type_Closed) {
+				is_running = 0;
+			}
+		}
+
+		moon_RenderWindow_clear(wnd, &bg_clr);
+
+		moon_SpriteGroup_draw(blocks, wnd, states);
+
+		moon_Sprite_draw(player, wnd, states);
+
+		moon_guiFpsCntr_draw(fps_cntr, wnd, states);
+
+		moon_RenderWindow_display(wnd);
+
+		moon_Clock_wait(clock);
+		float delta_seconds = moon_Time_as_seconds(
+			moon_Clock_delta(clock)
+		);
+
+		float player_offset = player_speed * delta_seconds;
+		float player_dx = 0.f, player_dy = 0.f;
+		if (moon_Keyboard_is_key_pressed(moon_Keyboard_Key_Right)) {
+			if (player_offset < 0.f) {
+				player_offset *= -1.f;
+			}
+			player_dx += player_offset;
+		}
+		if (moon_Keyboard_is_key_pressed(moon_Keyboard_Key_Left)) {
+			if (player_offset > 0.f) {
+				player_offset *= -1.f;
+			}
+			player_dx += player_offset;
+		}
+		if (moon_Keyboard_is_key_pressed(moon_Keyboard_Key_Up)) {
+			if (player_offset > 0.f) {
+				player_offset *= -1.f;
+			}
+			player_dy += player_offset;
+		}
+		if (moon_Keyboard_is_key_pressed(moon_Keyboard_Key_Down)) {
+			if (player_offset < 0.f) {
+				player_offset *= -1.f;
+			}
+			player_dy += player_offset;
+		}
+		moon_Sprite_move(player, player_dx, player_dy);
+
+		moon_FloatRect player_rect = moon_Sprite_get_global_bounds(player);
+		moon_SpriteGroup* collided = moon_Collisions_sprites_collide(
+			&player_rect,
+			blocks,
+			moon_Collisions_UnlimitedDistance,
+			moon_Collisions_UnlimitedDistance,
+			1									// remove collided
+		);
+		moon_SpriteGroup_destroy(collided);
+
+		moon_guiFpsCntr_update(fps_cntr);
+	}
+	moon_RenderWindow_close(wnd);
+
+	goto cleanup;
+	cleanup:
+		moon_Destroyer_destroy(destroyer);
+}
 
 
 void collisions_test() {

@@ -2,6 +2,9 @@
 #define MOON_CSFML_EXTRAS_MOON_SPRITE_GROUP_H
 
 
+#include "./moon_frect_lst.h"
+
+
 #include "../graphics/moon_sprite.h"
 
 #include "../graphics/moon_render_states.h"
@@ -12,6 +15,9 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+
+#define moon_SpriteGroup_InitialCapacity 	(15UL)
 
 
 struct MOON_CSFML_API moon_SpriteGroup;
@@ -104,6 +110,21 @@ MOON_CSFML_API moon_FloatRect
 moon_SpriteGroup_get_global_bounds(
 	const moon_SpriteGroup* self,
 	unsigned long index
+);
+
+/**
+ * Returns a list of rectangles for sprites in this group.
+ *
+ * The parameter 'as_global_bounds' determines which rectangles
+ *to get: local(local bounds) or global
+ *(global bounds, in global coordinates taking into account transformations).
+ * Set a value of 'as_global_bounds' to 0 if you need local bounds,
+ *otherwise it will return global bounds.
+ */
+MOON_CSFML_API moon_FRectLst*
+moon_SpriteGroup_get_rectangles(
+	const moon_SpriteGroup* self,
+	int as_global_bounds
 );
 
 // moon_SpriteTransform begin.
@@ -409,6 +430,17 @@ moon_SpriteGroup_get_slice(
 );
 
 // DrawGroup end
+
+
+/**
+ * Returns sprite at index.
+ * For internal use only!
+ */
+MOON_CSFML_API moon_Sprite*
+moon_SpriteGroup_get(
+	const moon_SpriteGroup* self,
+	unsigned long index
+);
 
 
 #ifdef __cplusplus

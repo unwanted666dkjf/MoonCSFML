@@ -312,6 +312,123 @@ moon_Collisions_rectangles_collision_many(
 );
 
 /**
+ * Returns 1 if the rectangles intersect. Otherwise, 0.
+ */
+MOON_CSFML_API int
+moon_Collisions_is_collide(
+	const moon_FloatRect* self,
+	const moon_FloatRect* other
+);
+
+/**
+ * Returns 1 if the rectangles intersect. Otherwise, 0.
+ * Before checking, it checks the distances between the rectangles.
+ *If the distance is greater than the specified one, then the
+ *rectangles do not intersect.
+ * If the distance is negative or equal to
+ *'moon_Collisions_UnlimitedDistance', the parameter will be ignored.
+ */
+MOON_CSFML_API int
+moon_Collisions_is_collide_ex(
+	const moon_FloatRect* self,
+	const moon_FloatRect* other,
+	float distance_x,
+	float distance_y
+);
+
+/**
+ * Checks for collisions between the 'self' rectangle
+ *and the 'rectangles' list.
+ * Returns a list of rectangles that have been intersected.
+ * Result must be destroyed after usage.
+ *
+ * The additional 'distance_x' and 'distance_y' parameters
+ *define the distance between the centers of the rectangles,
+ *and if it is greater than the specified distance, the
+ *check will not be performed.
+ * If the distance is negative or equal to
+ *'moon_Collisions_UnlimitedDistance', the parameter will be ignored.
+ *
+ * If the 'remove_collided' parameter is 0, then rectangles
+ *with which 'self' had an intersection will not be removed from
+ *the 'rectangles' list. Otherwise, they will.
+ */
+MOON_CSFML_API moon_FRectLst*
+moon_Collisions_rects_collide(
+	const moon_FloatRect* self,
+	moon_FRectLst* rectangles,
+	float distance_x,
+	float distance_y,
+	int remove_collided
+);
+
+/**
+ * Checks for collisions between the 'self' rectangle
+ *and the sprite group.
+ * Returns a group of sprites that have been intersected.
+ *'check_enabled' of the result will be the same as
+ *that of the original group.
+ * For intersection uses global bounds of sprites.
+ * Result must be destroyed after usage.
+ *
+ * The additional 'distance_x' and 'distance_y' parameters
+ *define the distance between the centers of the rectangles,
+ *and if it is greater than the specified distance, the
+ *check will not be performed.
+ * If the distance is negative or equal to
+ *'moon_Collisions_UnlimitedDistance', the parameter will be ignored.
+ *
+ * If the 'remove_collided' parameter is 0, then sprites
+ *with which 'self' had an intersection will not be removed from
+ *the sprite group. Otherwise, they will.
+ */
+MOON_CSFML_API moon_SpriteGroup*
+moon_Collisions_sprites_collide(
+	const moon_FloatRect* self,
+	moon_SpriteGroup* sprites,
+	float distance_x,
+	float distance_y,
+	int remove_collided
+);
+
+/**
+ * Checks the collisions of rectangles of the first group with the second.
+ * Returns a list of rectangles from the first group that intersected
+ *with rectangles from the second.
+ * Result must be destroyed after usage.
+ *
+ * If 'remove_collided' is not zero, then the function excludes
+ *rectangles from the first group that intersect with at least
+ *one rectangle from the second. Otherwise, it will not.
+ */
+MOON_CSFML_API moon_FRectLst*
+moon_Collisions_rects_groupcollide(
+	moon_FRectLst* group1,
+	const moon_FRectLst* group2,
+	int remove_collided
+);
+
+/**
+ * Checks the collisions of sprites of the first group with the second.
+ * Returns a group of sprites from the first group that intersected
+ *with sprites from the second.
+ *
+ * Result must be destroyed after usage.
+ * 'check_enabled' of the result will be the same as
+ *that of the original group1.
+ *
+ * If 'remove_collided' is not zero, then the function excludes
+ *sprites from the first group that intersect with at least
+ *one sprite from the second. Otherwise, it will not.
+ */
+MOON_CSFML_API moon_SpriteGroup*
+moon_Collisions_sprites_groupcollide(
+	moon_SpriteGroup* group1,
+	const moon_SpriteGroup* group2,
+	int remove_collided
+);
+
+/**
  * Returns 1 if rectangle 'self' collides
  *with global bounds rectangle of any
  *sprite in the group.

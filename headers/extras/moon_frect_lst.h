@@ -10,6 +10,9 @@ extern "C" {
 #endif
 
 
+#define moon_FRectLst_InitialCapacity (15UL)
+
+
 struct MOON_CSFML_API moon_FRectLst;
 
 

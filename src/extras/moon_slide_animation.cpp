@@ -1,3 +1,5 @@
+#include "../../headers/extras/moon_colors.h"
+
 #include "../../headers/extras/moon_slide_animation.h"
 
 #include "../../headers/extras/moon_sprite_transform.h"
@@ -282,6 +284,24 @@ moon_SlideAnimation_get_position(const moon_SlideAnimation* self) {
 		return {0.f, 0.f};
 	}
 	return moon_Sprite_get_position(current);
+}
+
+moon_Vector2f
+moon_SlideAnimation_get_scale(const moon_SlideAnimation* self) {
+	const moon_Sprite* current = moon_SlideAnimation_get_current_sprite(self);
+	if (!current) {
+		return {0.f, 0.f};
+	}
+	return moon_Sprite_get_scale(current);
+}
+
+moon_Color
+moon_SlideAnimation_get_color(const moon_SlideAnimation* self) {
+	const moon_Sprite* current = moon_SlideAnimation_get_current_sprite(self);
+	if (!current) {
+		return moon_Colors_Black(255);
+	}
+	return moon_Sprite_get_color(current);
 }
 
 moon_FloatRect

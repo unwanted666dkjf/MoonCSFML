@@ -4,6 +4,14 @@
 #include "../../headers/extras/moon_collisions.h"
 
 
+static int
+moon_Collisions_dist_intersection(
+	const moon_FloatRect* self,
+	const moon_FloatRect* other,
+	const float* distance_x,
+	const float* distance_y
+);
+
 static void
 moon_Collisions_shift_collision(
 	moon_Vector2f* res_offsets,
@@ -177,6 +185,143 @@ moon_Collisions_rectangles_collision_many(
 }
 
 int
+moon_Collisions_is_collide(
+	const moon_FloatRect* self,
+	const moon_FloatRect* other
+) {
+	moon_FloatRect intersection = moon_FloatRect_get_intersection(self, other);
+	return !moon_FloatRect_is_empty(&intersection);
+}
+
+int
+moon_Collisions_is_collide_ex(
+	const moon_FloatRect* self,
+	const moon_FloatRect* other,
+	float distance_x,
+	float distance_y
+) {
+	return moon_Collisions_dist_intersection(
+		self, other,
+		&distance_x,
+		&distance_y
+	);
+}
+
+moon_FRectLst*
+moon_Collisions_rects_collide(
+	const moon_FloatRect* self,
+	moon_FRectLst* rectangles,
+	float distance_x,
+	float distance_y,
+	int remove_collided
+) {
+	moon_FRectLst* res = moon_FRectLst_create(moon_FRectLst_InitialCapacity);
+	for (unsigned long i = 0UL; i < moon_FRectLst_length(rectangles);) {
+		const moon_FloatRect* bound = moon_FRectLst_read(rectangles, i);
+		if (
+			!moon_Collisions_dist_intersection(
+				self, bound,
+				&distance_x,
+				&distance_y
+			)
+		) {
+			i++;
+			continue;
+		}
+		moon_FRectLst_push_back(res, bound);
+		if (remove_collided) {
+			moon_FRectLst_pop(rectangles, i);
+		} else {
+			i++;
+		}
+	}
+	return res;
+}
+
+moon_SpriteGroup*
+moon_Collisions_sprites_collide(
+	const moon_FloatRect* self,
+	moon_SpriteGroup* sprites,
+	float distance_x,
+	float distance_y,
+	int remove_collided
+) {
+	moon_SpriteGroup* res = moon_SpriteGroup_create(
+		moon_SpriteGroup_is_check_enabled(sprites),
+		moon_SpriteGroup_InitialCapacity
+	);
+	for (unsigned long i = 0UL; i < moon_SpriteGroup_length(sprites);) {
+		moon_FloatRect bound = moon_SpriteGroup_get_global_bounds(sprites, i);
+		if (
+			!moon_Collisions_dist_intersection(
+				self, &bound,
+				&distance_x,
+				&distance_y
+			)
+		) {
+			i++;
+			continue;
+		}
+		moon_SpriteGroup_push_back(res, moon_SpriteGroup_get(sprites, i));
+		if (remove_collided) {
+			moon_SpriteGroup_remove(sprites, i);
+		} else {
+			i++;
+		}
+	}
+	return res;
+}
+
+moon_FRectLst*
+moon_Collisions_rects_groupcollide(
+	moon_FRectLst* group1,
+	const moon_FRectLst* group2,
+	int remove_collided
+) {
+	moon_FRectLst* res = moon_FRectLst_create(moon_FRectLst_InitialCapacity);
+	for (unsigned long i = 0UL; i < moon_FRectLst_length(group1);) {
+		const moon_FloatRect* bound = moon_FRectLst_read(group1, i);
+		if (!moon_Collisions_is_any_frect_collision(bound, group2)) {
+			i++;
+			continue;
+		}
+		moon_FRectLst_push_back(res, bound);
+		if (remove_collided) {
+			moon_FRectLst_pop(group1, i);
+		} else {
+			i++;
+		}
+	}
+	return res;
+}
+
+moon_SpriteGroup*
+moon_Collisions_sprites_groupcollide(
+	moon_SpriteGroup* group1,
+	const moon_SpriteGroup* group2,
+	int remove_collided
+) {
+	moon_SpriteGroup* res = moon_SpriteGroup_create(
+		moon_SpriteGroup_is_check_enabled(group1),
+		moon_SpriteGroup_InitialCapacity
+	);
+	for (unsigned long i = 0UL; i < moon_SpriteGroup_length(group1);) {
+		moon_FloatRect bound = moon_SpriteGroup_get_global_bounds(group1, i);
+		if (!moon_Collisions_is_any_collision(&bound, group2)) {
+			i++;
+			continue;
+		}
+		moon_SpriteGroup_push_back(res, moon_SpriteGroup_get(group1, i));
+		if (remove_collided) {
+			moon_SpriteGroup_remove(group1, i);
+		} else {
+			i++;
+		}
+	}
+	return res;
+}
+
+int
 moon_Collisions_is_any_collision(
 	const moon_FloatRect* self,
 	const moon_SpriteGroup* sprites
@@ -184,8 +329,7 @@ moon_Collisions_is_any_collision(
 	int res = 0;
 	for (unsigned long i = 0UL; i < moon_SpriteGroup_length(sprites); i++) {
 		moon_FloatRect bound = moon_SpriteGroup_get_global_bounds(sprites, i);
-		moon_FloatRect intersection = moon_FloatRect_get_intersection(self, &bound);
-		if (!moon_FloatRect_is_empty(&intersection)) {
+		if (moon_Collisions_is_collide(self, &bound)) {
 			res = 1;
 			break;
 		}
@@ -201,8 +345,7 @@ moon_Collisions_is_any_frect_collision(
 	int res = 0;
 	for (unsigned long i = 0UL; i < moon_FRectLst_length(rectangles); i++) {
 		const moon_FloatRect* bound = moon_FRectLst_read(rectangles, i);
-		moon_FloatRect intersection = moon_FloatRect_get_intersection(self, bound);
-		if (!moon_FloatRect_is_empty(&intersection)) {
+		if (moon_Collisions_is_collide(self, bound)) {
 			res = 1;
 			break;
 		}
@@ -210,6 +353,32 @@ moon_Collisions_is_any_frect_collision(
 	return res;
 }
 
+
+int
+moon_Collisions_dist_intersection(
+	const moon_FloatRect* self,
+	const moon_FloatRect* other,
+	const float* distance_x,
+	const float* distance_y
+) {
+	if ((*distance_x) > moon_Collisions_UnlimitedDistance) {
+		float self_centerx  = self->left  + self->width * .5f;
+		float other_centerx = other->left + other->width * .5f;
+		float distx = self_centerx - other_centerx;
+		if (moon_utils_Abs(distx) >= (*distance_x)) {
+			return 0;
+		}
+	}
+	if ((*distance_y) > moon_Collisions_UnlimitedDistance) {
+		float self_centery  = self->top  + self->height * .5f;
+		float other_centery = other->top + other->height * .5f;
+		float disty = self_centery - other_centery;
+		if (moon_utils_Abs(disty) >= (*distance_y)) {
+			return 0;
+		}
+	}
+	return moon_Collisions_is_collide(self, other);
+}
 
 void
 moon_Collisions_shift_collision(
@@ -221,26 +390,13 @@ moon_Collisions_shift_collision(
 	const int* resolve_horizontal,
 	const int* resolve_vertical
 ) {
-	if ((*distance_x) > moon_Collisions_UnlimitedDistance) {
-		float self_centerx 	= self->left  + self->width * .5f;
-		float bound_centerx = bound->left + bound->width * .5f;
-		float dl = self_centerx - bound_centerx;
-		float distance = moon_utils_Abs(dl);
-		if (distance >= (*distance_x)) {
-			return;
-		}
-	}
-	if ((*distance_y) > moon_Collisions_UnlimitedDistance) {
-		float self_centery 	= self->top  + self->height * .5f;
-		float bound_centery = bound->top + bound->height * .5f;
-		float dh = self_centery - bound_centery;
-		float distance = moon_utils_Abs(dh);
-		if (distance >= (*distance_y)) {
-			return;
-		}
-	}
-	moon_FloatRect intersection = moon_FloatRect_get_intersection(self, bound);
-	if (moon_FloatRect_is_empty(&intersection)) {
+	if (
+		!moon_Collisions_dist_intersection(
+			self, bound,
+			distance_x,
+			distance_y
+		)
+	) {
 		return;
 	}
 	if ((*resolve_vertical) && (*resolve_horizontal)) {
