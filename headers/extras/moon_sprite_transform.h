@@ -24,6 +24,7 @@ moon_SpriteTransform_flip(
 /**
  * Scales the sprite to fit the size.
  * Works only if sprite has texture.
+ * Returns new size(in global coordinates) of the sprite.
  * The perculiarity is that the function
  *can recalculate the size if 'keep_w' or
  *'keep_h' are specified to preserve the
@@ -35,7 +36,7 @@ moon_SpriteTransform_flip(
  * Morever, 'width' can be set to zero if 'keep_h' is
  *equal to 1. The same is true for 'height'.
  */
-MOON_CSFML_API void
+MOON_CSFML_API moon_Vector2f
 moon_SpriteTransform_scale(
 	moon_Sprite* sprite,
 	float width, float height,
@@ -45,8 +46,9 @@ moon_SpriteTransform_scale(
 /**
  * Rotates the sprite without changing the position of it's center.
  * Useful when you don't want to set 'origin'.
+ * Returns new rotation angle of the sprite.
  */
-MOON_CSFML_API void
+MOON_CSFML_API moon_Angle
 moon_SpriteTransform_rotate(
 	moon_Sprite* sprite,
 	moon_Angle angle

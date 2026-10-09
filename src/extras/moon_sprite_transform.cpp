@@ -36,7 +36,7 @@ moon_SpriteTransform_flip(
 	);
 }
 
-void
+moon_Vector2f
 moon_SpriteTransform_scale(
 	moon_Sprite* sprite,
 	float width, float height,
@@ -53,15 +53,18 @@ moon_SpriteTransform_scale(
 		size.x / static_cast<float>(texture_size.x),
 		size.y / static_cast<float>(texture_size.y)
 	);
+	return size;
 }
 
-void
+moon_Angle
 moon_SpriteTransform_rotate(
 	moon_Sprite* sprite,
 	moon_Angle angle
 ) {
 	float current = sprite->getRotation();
-	moon_SpriteTransform_set_rotation(sprite, current + angle);
+	moon_Angle res = current + angle;
+	moon_SpriteTransform_set_rotation(sprite, res);
+	return res;
 }
 
 void

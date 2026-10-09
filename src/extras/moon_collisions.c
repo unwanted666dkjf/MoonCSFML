@@ -322,6 +322,62 @@ moon_Collisions_sprites_groupcollide(
 }
 
 int
+moon_Collisions_rects_deadly_groupcollide(
+	moon_FRectLst* group1,
+	moon_FRectLst* group2,
+	int remove_collided1,
+	int remove_collided2
+) {
+	moon_FRectLst* gr1_collided;
+	if (remove_collided1) {
+		gr1_collided = moon_Collisions_rects_groupcollide(group1, group2, 1);
+	} else {
+		gr1_collided = moon_Collisions_rects_groupcollide(group1, group2, 0);
+	}
+	if (moon_FRectLst_is_empty(gr1_collided)) {
+		moon_FRectLst_destroy(gr1_collided);
+		return 0;
+	}
+	moon_FRectLst* tmp;
+	if (remove_collided2) {
+		tmp = moon_Collisions_rects_groupcollide(group2, gr1_collided, 1);
+	} else {
+		tmp = moon_Collisions_rects_groupcollide(group2, gr1_collided, 0);
+	}
+	moon_FRectLst_destroy(tmp);
+	moon_FRectLst_destroy(gr1_collided);
+	return 1;
+}
+
+int
+moon_Collisions_sprites_deadly_groupcollide(
+	moon_SpriteGroup* group1,
+	moon_SpriteGroup* group2,
+	int remove_collided1,
+	int remove_collided2
+) {
+	moon_SpriteGroup* gr1_collided;
+	if (remove_collided1) {
+		gr1_collided = moon_Collisions_sprites_groupcollide(group1, group2, 1);
+	} else {
+		gr1_collided = moon_Collisions_sprites_groupcollide(group1, group2, 0);
+	}
+	if (moon_SpriteGroup_is_empty(gr1_collided)) {
+		moon_SpriteGroup_destroy(gr1_collided);
+		return 0;
+	}
+	moon_SpriteGroup* tmp;
+	if (remove_collided2) {
+		tmp = moon_Collisions_sprites_groupcollide(group2, gr1_collided, 1);
+	} else {
+		tmp = moon_Collisions_sprites_groupcollide(group2, gr1_collided, 0);
+	}
+	moon_SpriteGroup_destroy(tmp);
+	moon_SpriteGroup_destroy(gr1_collided);
+	return 1;
+}
+
+int
 moon_Collisions_is_any_collision(
 	const moon_FloatRect* self,
 	const moon_SpriteGroup* sprites

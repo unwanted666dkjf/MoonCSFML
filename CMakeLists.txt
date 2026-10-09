@@ -22,14 +22,14 @@ set(
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-option(BUILD_SHARED "Build as shared library" ON)
+option(BUILD_SHARED "Build as shared library" OFF)
 
 option(BUILD_STATIC "Build as static library" OFF)	# Static build may not include all deps.
 
 option(USE_STATIC_STD_LIBS "Try to link static standard libraries" ON)
 
 # on Windows you may not have libasan
-option(USE_ADDRESS_SANITAZERS "Use address sanitazers for Debug build or not" OFF)
+option(USE_ADDRESS_SANITAZERS "Use address sanitazers for Debug build or not" ON)
 
 # If neither shared nor static is specified, it builds executable
 
@@ -188,6 +188,7 @@ set(SOURCES
 	src/extras/moon_jump.c
 	src/extras/moon_path.c
 	src/extras/moon_pathgen.c
+	src/extras/moon_vec2f_utils.c
 	src/extras/moon_winstuff.c
 	src/extras/moon_collisions.c
 	src/extras/moon_file.cpp

@@ -429,6 +429,38 @@ moon_Collisions_sprites_groupcollide(
 );
 
 /**
+ * Checks the collisions of elements of the first group with the second.
+ * Returns 1 if there is at least one collision. Otherwise, returns 0.
+ *
+ * If 'remove_collided' parameter is not zero, then the function
+ *will exclude element from one group that intersect with at
+ *least one item from other. Otherwise, it will not.
+ */
+MOON_CSFML_API int
+moon_Collisions_rects_deadly_groupcollide(
+	moon_FRectLst* group1,
+	moon_FRectLst* group2,
+	int remove_collided1,
+	int remove_collided2
+);
+
+/**
+ * Checks the collisions of elements of the first group with the second.
+ * Returns 1 if there is at least one collision. Otherwise, returns 0.
+ *
+ * If 'remove_collided' parameter is not zero, then the function
+ *will exclude element from one group that intersect with at
+ *least one item from other. Otherwise, it will not.
+ */
+MOON_CSFML_API int
+moon_Collisions_sprites_deadly_groupcollide(
+	moon_SpriteGroup* group1,
+	moon_SpriteGroup* group2,
+	int remove_collided1,
+	int remove_collided2
+);
+
+/**
  * Returns 1 if rectangle 'self' collides
  *with global bounds rectangle of any
  *sprite in the group.
