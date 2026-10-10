@@ -24,6 +24,14 @@ moon_Vec2f_utils_cross_product(
 	return (float)(moon_Vec2utils_cross_product((*self), (*other)));
 }
 
+float
+moon_Vec2f_utils_distance_to(
+	const moon_Vector2f* self,
+	const moon_Vector2f* other
+) {
+	return (float)(moon_Vec2utils_distance_to((*self), (*other)));
+}
+
 moon_Angle
 moon_Vec2f_utils_angle(
 	const moon_Vector2f* self,
@@ -42,6 +50,24 @@ moon_Vec2f_utils_angle(
 	return moon_Angle_from_radians(
 		acosf(cosine)
 	);
+}
+
+moon_Vector2f
+moon_Vec2f_utils_copy(const moon_Vector2f* self) {
+	return moon_Vec2utils_copy(moon_Vector2f, (*self));
+}
+
+moon_Vector2f
+moon_Vec2f_utils_as_polar(const moon_Vector2f* self) {
+	return moon_Vec2utils_as_polar(moon_Vector2f, (*self));
+}
+
+moon_Vector2f
+moon_Vec2f_utils_from_polar(
+	float length,
+	float angle_in_radians
+) {
+	return moon_Vec2utils_from_polar(moon_Vector2f, length, angle_in_radians);
 }
 
 moon_Vector2f
@@ -76,11 +102,49 @@ moon_Vec2f_utils_sub(
 }
 
 moon_Vector2f
+moon_Vec2f_utils_project(
+	const moon_Vector2f* self,
+	const moon_Vector2f* other
+) {
+	moon_Vector2f res;
+	moon_Vec2utils_Procedure_project(res, (*self), (*other));
+	return res;
+}
+
+moon_Vector2f
+moon_Vec2f_utils_distance(
+	const moon_Vector2f* self,
+	const moon_Vector2f* other
+) {
+	return moon_Vec2utils_distance(moon_Vector2f, (*self), (*other));
+}
+
+moon_Vector2f
 moon_Vec2f_utils_reflection(
 	const moon_Vector2f* self,
 	const moon_Vector2f* normal
 ) {
 	moon_Vector2f res;
 	moon_Vec2utils_Procedure_reflection(res, (*normal), (*self));
+	return res;
+}
+
+moon_Vector2f
+moon_Vec2f_utils_lerp(
+	const moon_Vector2f* self,
+	const moon_Vector2f* other,
+	float t
+) {
+	return moon_Vec2utils_lerp(moon_Vector2f, (*self), (*other), t);
+}
+
+moon_Vector2f
+moon_Vec2f_utils_slerp(
+	const moon_Vector2f* self,
+	const moon_Vector2f* other,
+	float t
+) {
+	moon_Vector2f res;
+	moon_Vec2utils_Procedure_slerp(res, (*self), (*other), t);
 	return res;
 }

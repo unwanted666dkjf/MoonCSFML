@@ -2,6 +2,8 @@
 #define MOON_CSFML_EXTRAS_MOON_VEC2UTILS_H
 
 
+#include "../system/moon_angle.h"
+
 #include "../system/moon_vector2.h"
 
 
@@ -17,7 +19,44 @@ extern "C" {
  * Returns length(module) of 2D vector.
  */
 #define moon_Vec2utils_length(vec2_v)	\
-	(hypotf(vec2_v.x, vec2_v.y))
+	(hypotf((float)vec2_v.x, (float)vec2_v.y))
+
+/**
+ * Returns copy of the vector.
+ */
+#define moon_Vec2utils_copy(	\
+	ResTypeV2,					\
+	vec2_v						\
+)	\
+	(ResTypeV2){vec2_v.x, vec2_v.y}
+
+/**
+ * Returns a representation of a vector in polar coordinates.
+ * For 2D vector: {length, theta}.
+ * Note: 'theta' -- angle in radians.
+ */
+#define moon_Vec2utils_as_polar(	\
+	ResTypeV2,						\
+	vec2_v							\
+)	\
+	(ResTypeV2){					\
+		hypotf(vec2_v.x, vec2_v.y),	\
+		atan2f(vec2_v.y, vec2_v.x)	\
+	}
+
+/**
+ * Creates a vector in Euclidean coordinates
+ *from polar coordinates.
+ */
+#define moon_Vec2utils_from_polar(	\
+	ResTypeV2,						\
+	length,							\
+	angle_in_radians				\
+)	\
+	(ResTypeV2){								\
+		((length) * cosf(angle_in_radians)),	\
+		((length) * sinf(angle_in_radians))		\
+	}
 
 /**
  * Performs a simple multiplication of a 2D vector by a number.
@@ -50,6 +89,50 @@ extern "C" {
 	(ResTypeV2){vec2_v1.x - vec2_v2.x, vec2_v1.y - vec2_v2.y}
 
 /**
+ * Returns the linear interpolation of the first vector to the second.
+ * t is a parameter in range: [0 ; 1]
+ */
+#define moon_Vec2utils_lerp(	\
+	ResTypeV2,					\
+	vec2_v1,					\
+	vec2_v2,					\
+	t							\
+)	\
+	(ResTypeV2){										\
+		(vec2_v1.x + (t) * (vec2_v2.x - vec2_v1.x)),	\
+		(vec2_v1.y + (t) * (vec2_v2.y - vec2_v1.y))		\
+	}
+
+/**
+ * Returns the distance between vector 1 and vector 2 on the x and y axes.
+ */
+#define moon_Vec2utils_distance(	\
+	ResTypeV2,						\
+	vec2_v1,						\
+	vec2_v2							\
+)	\
+	(ResTypeV2){vec2_v2.x - vec2_v1.x, vec2_v2.y - vec2_v1.y}
+
+/**
+ * Returns the Euclidean distance between 2D vectors.
+ */
+#define moon_Vec2utils_distance_to(	\
+	vec2_v1,						\
+	vec2_v2							\
+)	\
+	(										\
+		moon_Vec2utils_length(				\
+			(								\
+				moon_Vec2utils_distance(	\
+					moon_Vector2f,			\
+					vec2_v1,				\
+					vec2_v2					\
+				)							\
+			)								\
+		)									\
+	)
+
+/**
  * Computes the dot product of 2D vectors.
  */
 #define moon_Vec2utils_dot_product(	\
@@ -69,6 +152,78 @@ extern "C" {
 	vec2_v2								\
 )	\
 	(vec2_v1.x * vec2_v2.y - vec2_v1.y * vec2_v2.x)
+
+/**
+ * Calculates the projection of the first vector onto the second.
+ * Result will be written in 'moon_Vector2f_res'.
+ * If the second vector is zero, then the
+ *result will be the zero vector.
+ */
+#define moon_Vec2utils_Procedure_project(	\
+	moon_Vector2f_res,						\
+	vec2_v1, 								\
+	vec2_v2									\
+)	\
+{	\
+	moon_Vector2f* res_Procedure__ 	= &(moon_Vector2f_res);	\
+	float denom_Procedure__ = (float)(						\
+		moon_Vec2utils_dot_product(							\
+			vec2_v2,										\
+			vec2_v2											\
+		)													\
+	);														\
+	if (denom_Procedure__ == 0.f) {							\
+		res_Procedure__->x = 0.f;							\
+		res_Procedure__->y = 0.f;							\
+	} else {												\
+		float scale_Procedure__ = (							\
+			(float)(										\
+				moon_Vec2utils_dot_product(					\
+					vec2_v1,								\
+					vec2_v2									\
+				)											\
+			)												\
+		) / denom_Procedure__;								\
+		res_Procedure__->x = scale_Procedure__ * vec2_v2.x;	\
+		res_Procedure__->y = scale_Procedure__ * vec2_v2.y;	\
+	}														\
+}
+
+/**
+ * Calculates the spherical interpolation of the first vector to the second.
+ * The result will be written in 'moon_Vector2f_res'.
+ * t is a parameter in range: [0 ; 1].
+ * Vectors must not be null.
+ */
+#define moon_Vec2utils_Procedure_slerp(	\
+	moon_Vector2f_res,					\
+	vec2_v1,							\
+	vec2_v2,							\
+	t									\
+)	\
+{	\
+	float t_Procedure__ 			= (float)(t);					\
+	float pi_Procedure__ 			= (float)(moon_Angle_M_PI);		\
+	moon_Vector2f* res_Procedure__ 	= &(moon_Vector2f_res);			\
+																	\
+	float alpha_Procedure__ = atan2f(vec2_v1.y, vec2_v1.x);			\
+	float beta_Procedure__	= atan2f(vec2_v2.y, vec2_v2.x);			\
+	float delta_Procedure__	= beta_Procedure__ - alpha_Procedure__;	\
+																	\
+	while (delta_Procedure__ > pi_Procedure__) {					\
+		delta_Procedure__ -= 2.f * pi_Procedure__;					\
+	}																\
+	while (delta_Procedure__ < -pi_Procedure__) {					\
+		delta_Procedure__ += 2.f * pi_Procedure__;					\
+	}																\
+	float radians_Procedure__ = (									\
+		alpha_Procedure__											\
+		+ t_Procedure__ * delta_Procedure__							\
+	);																\
+																	\
+	res_Procedure__->x = cosf(radians_Procedure__);					\
+	res_Procedure__->y = sinf(radians_Procedure__);					\
+}
 
 /**
  * Performs vector reflection from the surface.

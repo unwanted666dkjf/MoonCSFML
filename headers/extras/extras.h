@@ -19,6 +19,10 @@ extern "C" {
 
 #include "./moon_pathgen.h"
 
+#include "./moon_rectutils.h"
+
+#include "./moon_frect_utils.h"
+
 #include "./moon_vec2utils.h"
 
 #include "./moon_vec2f_utils.h"

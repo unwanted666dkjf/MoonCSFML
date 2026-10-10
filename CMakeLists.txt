@@ -189,6 +189,7 @@ set(SOURCES
 	src/extras/moon_path.c
 	src/extras/moon_pathgen.c
 	src/extras/moon_vec2f_utils.c
+	src/extras/moon_frect_utils.c
 	src/extras/moon_winstuff.c
 	src/extras/moon_collisions.c
 	src/extras/moon_file.cpp
