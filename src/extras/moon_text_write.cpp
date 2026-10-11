@@ -18,6 +18,9 @@
 
 
 static void
+moon_TextWrite_reset_current_text(moon_TextWrite* self);
+
+static void
 moon_TextWrite_realign(
 	moon_TextWrite* self,
 	const sf::FloatRect& old_bounds
@@ -71,13 +74,15 @@ moon_TextWrite_stop(moon_TextWrite* self) {
 
 void
 moon_TextWrite_start(moon_TextWrite* self) {
+	moon_TextWrite_reset_current_text(self);
 	moon_Clock_start(self->clock);
 }
 
 void
 moon_TextWrite_restart(moon_TextWrite* self) {
-	moon_Clock_start(self->clock);
 	self->cur_ind = 0UL;
+	moon_TextWrite_reset_current_text(self);
+	moon_Clock_restart(self->clock);
 }
 
 void
@@ -86,6 +91,7 @@ moon_TextWrite_set_textA(
 	const char* text
 ) {
 	self->text_to_type = sf::String(text);
+	moon_TextWrite_reset_current_text(self);
 }
 
 void
@@ -94,29 +100,34 @@ moon_TextWrite_set_textW(
 	const wchar_t* text
 ) {
 	self->text_to_type = sf::String(text);
+	moon_TextWrite_reset_current_text(self);
 }
 
-void
+int
 moon_TextWrite_update(moon_TextWrite* self) {
+	int res = 0;
 	if (!moon_Clock_is_running(self->clock)) {
-		return;
+		return res;
 	}
 	if (self->cur_ind >= self->text_to_type.getSize()) {
 		moon_Clock_stop(self->clock);
-		return;
+		return res;
 	}
 	float elapsed_seconds = moon_Time_as_seconds(
 		moon_Clock_wait(self->clock)
 	);
 	if (elapsed_seconds < self->typing_speed) {
-		return;
+		return res;
 	}
 	moon_Clock_reset(self->clock);
-	sf::String new_str = self->text_to_type.substring(0, ++self->cur_ind);
+	self->current_text[self->cur_ind] = self->text_to_type[self->cur_ind];
+	self->cur_ind++;
 	sf::FloatRect old_bounds = self->text->getGlobalBounds();
-	if(moon_Text_set_stringW(self->text, new_str.toWideString().c_str())) {
+	if(moon_Text_set_stringW(self->text, self->current_text.c_str())) {
 		moon_TextWrite_realign(self, old_bounds);
+		res = 1;
 	}
+	return res;
 }
 
 void
@@ -126,6 +137,7 @@ moon_TextWrite_clear(moon_TextWrite* self) {
 		moon_TextWrite_realign(self, old_bounds);
 	}
 	self->cur_ind = 0UL;
+	moon_TextWrite_reset_current_text(self);
 }
 
 void
@@ -370,6 +382,13 @@ moon_TextWrite_is_inversed_transform_updated(const moon_TextWrite* self) {
 }
 
 // Text end.
+
+void
+moon_TextWrite_reset_current_text(moon_TextWrite* self) {
+	self->current_text = std::wstring(
+		self->text_to_type.getSize(), L'\0'
+	);
+}
 
 void
 moon_TextWrite_realign(

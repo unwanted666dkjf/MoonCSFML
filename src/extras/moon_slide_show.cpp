@@ -22,9 +22,6 @@ moon_SlideShow_resize_sprite(
 	moon_Sprite* sprite
 );
 
-static moon_Sprite*
-moon_SlideShow_current(moon_SlideShow* self);
-
 static const moon_Sprite*
 moon_SlideShow_get_current_sprite(const moon_SlideShow* self);
 
@@ -363,7 +360,7 @@ moon_SlideShow_resize_sprite(
 moon_Sprite*
 moon_SlideShow_current(moon_SlideShow* self) {
 	if (self->sprites.empty()) {
-		return nullptr;
+		return NULL;
 	}
 	return &self->sprites[self->ind];
 }

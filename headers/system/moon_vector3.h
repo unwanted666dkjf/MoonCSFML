@@ -11,13 +11,20 @@ extern "C" {
 
 
 /**
+ * 3D vector internals
+ */
+#define moon_Vector3(Type)	\
+	Type x;	\
+	Type y;	\
+	Type z;
+
+
+/**
  * Utility structure for manipulating
  *3D vectors of unsigned integers.
  */
 typedef struct MOON_CSFML_API moon_Vector3u {
-	unsigned int x;
-	unsigned int y;
-	unsigned int z;
+	moon_Vector3(unsigned int)
 } moon_Vector3u;
 
 /**
@@ -25,9 +32,7 @@ typedef struct MOON_CSFML_API moon_Vector3u {
  *3D vectors of integers.
  */
 typedef struct MOON_CSFML_API moon_Vector3i {
-	int x;
-	int y;
-	int z;
+	moon_Vector3(int)
 } moon_Vector3i;
 
 /**
@@ -35,9 +40,7 @@ typedef struct MOON_CSFML_API moon_Vector3i {
  *3D vectors of floating point number.
  */
 typedef struct MOON_CSFML_API moon_Vector3f {
-	float x;
-	float y;
-	float z;
+	moon_Vector3(float)
 } moon_Vector3f;
 
 

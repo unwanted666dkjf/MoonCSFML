@@ -18,12 +18,6 @@
 #include "large_map.h"
 
 
-enum {
-	Direction_Left,
-	Direction_Right
-};
-
-
 #define NUM_EYE_TEXTURES (6)
 
 
@@ -55,7 +49,7 @@ void sprite_collide_test();
 
 
 int main() {
-	sprite_collide_test();
+	collisions_test();
 	return 0;
 }
 
@@ -235,7 +229,7 @@ void collisions_test() {
 
 	moon_VideoMode desktop_mode = moon_VideoMode_get_desktop_mode();
 
-	unsigned int fps 	= 60;
+	unsigned int fps 	= 50;
 	unsigned int size 	= moon_StandardSizes_get_size(&desktop_mode);
 	unsigned int wnd_w 	= size * 18, wnd_h = size * 11;
 	//	float fps_k = 60.f / (float)((fps != 0) ? fps : 1.f);
@@ -289,15 +283,20 @@ void collisions_test() {
 	);
 	float rect_speed   = 3.f * block_size;
 	float rect_gravity = 4.f * block_size;
-	int shape_direction = Direction_Left;
 	float colis_distancex = shape_w + shape_w * 2.f;
 	float colis_distancey = shape_h + shape_h * 2.f;
 	float rlast_bottom = shape_top + shape_h;
-	moon_Jump* rect_jump = moon_Jump_create(
-		rect_gravity + block_size * 3.5f,
-		shape_h * 3.f
-	);
-	moon_Destroyer_push_back(destroyer, rect_jump, moon_Destroyable_Jump);
+
+	moon_Keymove* rect_move = moon_Keymove_create();
+	moon_Destroyer_push_back(destroyer, rect_move, moon_Destroyable_Keymove);
+	moon_Keymove_set_key_right(rect_move, moon_Keyboard_Key_D);
+	moon_Keymove_set_key_left(rect_move, moon_Keyboard_Key_A);
+	moon_Keymove_set_key_jump(rect_move, moon_Keyboard_Key_W);
+	moon_Keymove_set_right_speed(rect_move, 	rect_speed);
+	moon_Keymove_set_left_speed(rect_move, 		rect_speed);
+	moon_Keymove_set_jump_speed(rect_move, 		rect_gravity + block_size * 3.5f);
+	moon_Keymove_set_jump_height(rect_move, 	shape_h * 3.f);
+	moon_Keymove_set_gravity_force(rect_move, 	rect_gravity);
 
 	float view_w = (float)wnd_w;
 	float view_h = (float)wnd_h;
@@ -311,6 +310,7 @@ void collisions_test() {
 	float view_offset = block_size * 5.f;
 	moon_View_set_center(&left_view,  shape_left - view_offset, shape_top);
 	moon_View_set_center(&right_view, shape_left + view_offset + shape_w, shape_top);
+	const moon_View* current_view = &left_view;
 
 	moon_Image* wnd_icon = moon_Image_create();
 	moon_Destroyer_push_back(destroyer, wnd_icon, moon_Destroyable_Image);
@@ -337,6 +337,7 @@ void collisions_test() {
 		icon_size.x, icon_size.y,
 		wnd_icon
 	);
+	moon_RenderWindow_set_view(wnd, &left_view);
 
 	moon_Color bg_clr = moon_Colors_DarkPurple(255);
 	moon_Event event;
@@ -360,9 +361,6 @@ void collisions_test() {
 	moon_guiFpsCntr_set_position(fps_cntr, wnd_w - fnt_size, 0.f);
 	moon_guiFpsCntr_set_style(fps_cntr, moon_Text_Style_Bold);
 
-	moon_Clock* clock = moon_Clock_create();
-	moon_Destroyer_push_back(destroyer, clock, moon_Destroyable_Clock);
-	moon_Clock_start(clock);
 	moon_guiFpsCntr_start(fps_cntr);
 	int is_running = moon_RenderWindow_is_open(wnd);
 	while (is_running) {
@@ -384,28 +382,7 @@ void collisions_test() {
 		moon_RenderWindow_display(wnd);
 
 		moon_Vector2f shape_start = moon_RectangleShape_get_position(rect_shape);
-
-		moon_Clock_wait(clock);
-		float delta_seconds = moon_Time_as_seconds(
-			moon_Clock_delta(clock)
-		);
-
-		int last_direction = shape_direction;
-		if (moon_Keyboard_is_key_pressed(moon_Keyboard_Key_D)) {
-			if (rect_speed < 0.f) {
-				rect_speed *= -1.f;
-			}
-			shape_direction = Direction_Right;
-			moon_RectangleShape_move(rect_shape, rect_speed * delta_seconds, 0.f);
-		} else if (moon_Keyboard_is_key_pressed(moon_Keyboard_Key_A)) {
-			if (rect_speed > 0.f) {
-				rect_speed *= -1.f;
-			}
-			shape_direction = Direction_Left;
-			moon_RectangleShape_move(rect_shape, rect_speed * delta_seconds, 0.f);
-		}
-
-		moon_RectangleShape_move(rect_shape, 0.f, rect_gravity * delta_seconds);
+		int last_direction = moon_Keymove_get_hor_direction(rect_move);
 
 		moon_FloatRect rrect = moon_RectangleShape_get_global_bounds(rect_shape);
 		moon_Vector2f col_offsets = moon_Collisions_rectangles_collision_many(
@@ -415,38 +392,39 @@ void collisions_test() {
 			colis_distancey,	// distance y
 			"vh"
 		);
+		moon_RectangleShape_move(rect_shape, col_offsets.x, col_offsets.y);
+
 		float rcur_bottom = rrect.top + rrect.height;
-		if (rcur_bottom == rlast_bottom) {								// on ground
-			if (moon_Keyboard_is_key_pressed(moon_Keyboard_Key_W)) {
-				moon_Jump_start(rect_jump, rcur_bottom);
-			}
-		}
-		rlast_bottom = rcur_bottom;
-		float jump_offset = moon_Jump_update(rect_jump);
-		moon_RectangleShape_move(
+		moon_Keymove_update_RectangleShape(
+			rect_move,
 			rect_shape,
-			col_offsets.x,
-			col_offsets.y + jump_offset
+			rcur_bottom == rlast_bottom		// on ground
 		);
+		rlast_bottom = rcur_bottom;
 
 		moon_guiFpsCntr_update(fps_cntr);
 
 		moon_Vector2f shape_end = moon_RectangleShape_get_position(rect_shape);
+		int shape_direction = moon_Keymove_get_hor_direction(rect_move);
 
 		float shape_offsetx = shape_end.x - shape_start.x;
 		float shape_offsety = shape_end.y - shape_start.y;
 		moon_View_move(&left_view, shape_offsetx, shape_offsety);
 		moon_View_move(&right_view, shape_offsetx, shape_offsety);
-		if (shape_direction == Direction_Left) {
-			moon_RenderWindow_set_view(wnd, &left_view);
-		} else {
-			moon_RenderWindow_set_view(wnd, &right_view);
+		if (shape_direction == moon_MoveDirection_Left) {
+			current_view = &left_view;
+		} else if (shape_direction == moon_MoveDirection_Right) {
+			current_view = &right_view;
 		}
+		moon_RenderWindow_set_view(wnd, current_view);
 
-		if (shape_direction != last_direction) {
+		if (
+			(shape_direction != last_direction)
+			&& (shape_direction != moon_MoveDirection_Unknown)
+		) {
 			moon_Vector2f cntr_size = moon_guiFpsCntr_get_size(fps_cntr);
 			float cntr_left, cntr_top;
-			if (shape_direction == Direction_Left) {
+			if (shape_direction == moon_MoveDirection_Left) {
 				cntr_top  = left_view.center.y - left_view.size.y * .5f;
 				cntr_left = left_view.center.x + left_view.size.x * .5f;
 			} else {

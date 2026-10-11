@@ -55,6 +55,14 @@ MOON_CSFML_API void
 moon_SlideAnimation_destroy(moon_SlideAnimation* self);
 
 /**
+ * Returns pointer to the current animation sprite
+ *or NULL if animation has no sprites.
+ * You should not destroy this pointer.
+ */
+MOON_CSFML_API moon_Sprite*
+moon_SlideAnimation_current(moon_SlideAnimation* self);
+
+/**
  * Draws current sprite to the window.
  * If there is no sprites in animation yet,
  *does nothing.

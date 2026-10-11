@@ -118,6 +118,7 @@ moon_TextWrite_set_textW(
 
 /**
  * Updates text if typing is not stopped.
+ * Returns 1 if text was updated, 0 otherwise.
  * For it to work correctly, the function must
  *be called in the game loop.
  * The text will be realigned automatically.
@@ -125,7 +126,7 @@ moon_TextWrite_set_textW(
  * The orientation preserves the original center
  *position in global coordinates.
  */
-MOON_CSFML_API void
+MOON_CSFML_API int
 moon_TextWrite_update(moon_TextWrite* self);
 
 /**

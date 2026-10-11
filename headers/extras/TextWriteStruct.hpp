@@ -33,15 +33,17 @@ private:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 
-	unsigned long cur_ind;
+	unsigned long 	cur_ind;
 
-	float typing_speed;
+	float 			typing_speed;
 
-	sf::String text_to_type;			// Because it has better unicode support
+	sf::String 		text_to_type;			// Because it has better unicode support
 
-	moon_Text* text;
+	std::wstring 	current_text;			// Because it has better unicode support
 
-	moon_Clock* clock;
+	moon_Text* 		text;
+
+	moon_Clock* 	clock;
 
 };
 

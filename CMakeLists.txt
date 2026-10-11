@@ -155,10 +155,10 @@ set(SOURCES
 	src/window/moon_video_modes_gen.cpp
 	src/window/moon_context_settings.cpp
 
+	src/graphics/moon_rect.c
 	src/graphics/Converters.cpp
 	src/graphics/moon_font.cpp
 	src/graphics/moon_text.cpp
-	src/graphics/moon_rect.cpp
 	src/graphics/moon_view.cpp
 	src/graphics/moon_glyph.cpp
 	src/graphics/moon_color.cpp
@@ -188,6 +188,7 @@ set(SOURCES
 	src/extras/moon_jump.c
 	src/extras/moon_path.c
 	src/extras/moon_pathgen.c
+	src/extras/moon_keymove.c
 	src/extras/moon_vec2f_utils.c
 	src/extras/moon_frect_utils.c
 	src/extras/moon_winstuff.c

@@ -58,6 +58,8 @@
 
 #include "../../headers/extras/moon_destroyer.h"
 
+#include "../../headers/extras/moon_keymove.h"
+
 #include "../../headers/extras/moon_frect_lst.h"
 
 #include "../../headers/extras/moon_text_write.h"
@@ -257,6 +259,9 @@ moon_Destroyer_kill(moon_Destroyable* victim) {
 
 		case moon_Destroyable_Destroyer:
 			moon_Destroyer_destroy(static_cast<moon_Destroyer*>(body));
+			break;
+		case moon_Destroyable_Keymove:
+			moon_Keymove_destroy(static_cast<moon_Keymove*>(body));
 			break;
 		case moon_Destroyable_Pathgen:
 			moon_Pathgen_destroy(static_cast<moon_Pathgen*>(body));

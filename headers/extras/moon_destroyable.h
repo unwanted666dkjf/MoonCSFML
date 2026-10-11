@@ -56,6 +56,7 @@ enum {
 	moon_Destroyable_FRectLst,
 	moon_Destroyable_TextWrite,
 	moon_Destroyable_DrawGroup,
+	moon_Destroyable_Keymove,
 	moon_Destroyable_SpriteGroup,
 	moon_Destroyable_guiFpsCntr,
 	moon_Destroyable_SlideShow,

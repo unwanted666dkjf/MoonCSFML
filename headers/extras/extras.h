@@ -19,6 +19,10 @@ extern "C" {
 
 #include "./moon_pathgen.h"
 
+#include "./moon_keymove.h"
+
+#include "./moon_move_direction.h"
+
 #include "./moon_rectutils.h"
 
 #include "./moon_frect_utils.h"

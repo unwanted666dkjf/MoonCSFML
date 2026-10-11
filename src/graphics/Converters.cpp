@@ -5,12 +5,13 @@
 #define protected public
 
 
+
 #include "../../headers/system/moon_utils.h"
 
 
-#include "../../headers/graphics/Converters.hpp"
+#include "../../headers/graphics/moon_rect.h"
 
-#include "../../headers/graphics/RectUtils.hpp"
+#include "../../headers/graphics/Converters.hpp"
 
 
 moon_Vertex
@@ -137,23 +138,23 @@ blend_mode_moon_to_sf(const moon_BlendMode& blend_mode) {
 
 moon_IntRect
 int_rect_sf_to_moon(const sf::IntRect& rect) {
-	return moon_Rect_convert<sf::IntRect, moon_IntRect, int>(&rect);
+	return {rect.left, rect.top, rect.width, rect.height};
 }
 
 sf::IntRect
 int_rect_moon_to_sf(const moon_IntRect& rect) {
-	return moon_Rect_convert<moon_IntRect, sf::IntRect, int>(&rect);
+	return sf::IntRect(rect.left, rect.top, rect.width, rect.height);
 }
 
 
 moon_FloatRect
 float_rect_sf_to_moon(const sf::FloatRect& rect) {
-	return moon_Rect_convert<sf::FloatRect, moon_FloatRect, float>(&rect);
+	return {rect.left, rect.top, rect.width, rect.height};
 }
 
 sf::FloatRect
 float_rect_moon_to_sf(const moon_FloatRect& rect) {
-	return moon_Rect_convert<moon_FloatRect, sf::FloatRect, float>(&rect);
+	return sf::FloatRect(rect.left, rect.top, rect.width, rect.height);
 }
 
 
