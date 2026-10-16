@@ -63,6 +63,14 @@ moon_View_set_rotation(
 }
 
 void
+moon_View_set_viewport(
+	moon_View* self,
+	const moon_FloatRect* viewport
+) {
+	self->viewport = (*viewport);
+}
+
+void
 moon_View_move(
 	moon_View* self,
 	float dx, float dy

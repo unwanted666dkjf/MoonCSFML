@@ -49,7 +49,7 @@ void sprite_collide_test();
 
 
 int main() {
-	collisions_test();
+	example();
 	return 0;
 }
 

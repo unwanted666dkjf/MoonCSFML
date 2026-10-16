@@ -101,7 +101,7 @@ MOON_CSFML_API void
 moon_Destroyer_annihilate(moon_Destroyer* self);
 
 /**
- * Reverses the order in which items are destroyed.
+ * Reverses the order in which items will be destroyed.
  */
 MOON_CSFML_API void
 moon_Destroyer_reverse(moon_Destroyer* self);

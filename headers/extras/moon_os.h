@@ -3,7 +3,7 @@
 
 
 #ifdef __cplusplus
-#define "C" {
+extern "C" {
 #endif
 
 

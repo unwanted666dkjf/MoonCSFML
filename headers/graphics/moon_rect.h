@@ -22,11 +22,11 @@ extern "C" {
 
 /**
  * Returns 1 if rectangle is empty, 0 otherwise.
- * Rectangle is empty if it's width and height both
+ * Rectangle is empty if it's width or height
  *are less or equal than 0.
  */
 #define moon_Rect_is_empty(rect)	\
-	(rect.width <= 0 && rect.height <= 0)
+	(rect.width <= 0 || rect.height <= 0)
 
 /**
  * Returns 1 if rectangle contains point with

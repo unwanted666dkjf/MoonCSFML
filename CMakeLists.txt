@@ -22,14 +22,14 @@ set(
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-option(BUILD_SHARED "Build as shared library" OFF)
+option(BUILD_SHARED "Build as shared library" ON)
 
 option(BUILD_STATIC "Build as static library" OFF)	# Static build may not include all deps.
 
 option(USE_STATIC_STD_LIBS "Try to link static standard libraries" ON)
 
 # on Windows you may not have libasan
-option(USE_ADDRESS_SANITAZERS "Use address sanitazers for Debug build or not" ON)
+option(USE_ADDRESS_SANITAZERS "Use address sanitazers for Debug build or not" OFF)
 
 # If neither shared nor static is specified, it builds executable
 

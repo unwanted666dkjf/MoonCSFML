@@ -36,7 +36,8 @@ MOON_CSFML_API void
 moon_Pathgen_destroy(moon_Pathgen* self);
 
 /**
- * Returns 1 if if the directory still contains something.
+ * Returns 1 if if generator can returns next path from
+ *directory. 0, otherwise.
  */
 MOON_CSFML_API int
 moon_Pathgen_has_next(const moon_Pathgen* self);

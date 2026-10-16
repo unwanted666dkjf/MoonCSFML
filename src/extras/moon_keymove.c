@@ -328,6 +328,11 @@ moon_Keymove_get_key_jump(const moon_Keymove* self) {
 }
 
 int
+moon_Keymove_get_jump_status(const moon_Keymove* self) {
+	return moon_Jump_get_status(self->jump_move);
+}
+
+int
 moon_Keymove_get_hor_direction(const moon_Keymove* self) {
 	return self->hor_direction;
 }

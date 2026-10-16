@@ -79,6 +79,15 @@ moon_View_set_rotation(
 );
 
 /**
+ * Sets the viewport of the view.
+ */
+MOON_CSFML_API void
+moon_View_set_viewport(
+	moon_View* self,
+	const moon_FloatRect* viewport
+);
+
+/**
  * Moves the view relatively to its current position.
  * Shortcut for:
  *     self->center.x += dx;

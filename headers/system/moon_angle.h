@@ -10,7 +10,7 @@ extern "C" {
 #endif
 
 
-// Like in python2.7.18, btw
+// Like in python, btw
 #define moon_Angle_M_PI (3.141592653589793f)
 
 

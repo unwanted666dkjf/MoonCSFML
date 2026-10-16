@@ -21,7 +21,7 @@ struct MOON_CSFML_API moon_SlideAnimation;
  * Structure for creating simple sprite animations.
  * Uses cpu-ticks instead of time.
  * In SFML there is another way to create animations,
- *but I am former SDL user.
+ *but I am former SDL and pygame user.
  */
 typedef struct moon_SlideAnimation moon_SlideAnimation;
 

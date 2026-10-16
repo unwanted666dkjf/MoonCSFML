@@ -114,17 +114,16 @@ moon_SpriteGroup_get_global_bounds(
 
 /**
  * Returns a list of rectangles for sprites in this group.
- *
- * The parameter 'as_global_bounds' determines which rectangles
- *to get: local(local bounds) or global
- *(global bounds, in global coordinates taking into account transformations).
- * Set a value of 'as_global_bounds' to 0 if you need local bounds,
- *otherwise it will return global bounds.
+ *	'bounds_type' -- type of bounds.
+ * Bounds types:
+ * moon_BoundsType_Global;
+ * moon_BoundsType_Local;
+ * moon_BoundsType_World
  */
 MOON_CSFML_API moon_FRectLst*
 moon_SpriteGroup_get_rectangles(
 	const moon_SpriteGroup* self,
-	int as_global_bounds
+	int bounds_type
 );
 
 // moon_SpriteTransform begin.
@@ -144,7 +143,7 @@ moon_SpriteGroup_flipX(
 /**
  * Rotates the sprites in group without
  *changing the position of their's center.
- * Useful when you don't want to set 'origin'.
+ * Useful when you don't want set 'origin'.
  */
 MOON_CSFML_API void
 moon_SpriteGroup_rotateX(
@@ -155,7 +154,7 @@ moon_SpriteGroup_rotateX(
 /**
  * Sets the rotation angle of the sprites in group without
  *changing the position of their's center.
- * Useful when you don't want to set 'origin'.
+ * Useful when you don't want set 'origin'.
  */
 MOON_CSFML_API void
 moon_SpriteGroup_set_rotationX(

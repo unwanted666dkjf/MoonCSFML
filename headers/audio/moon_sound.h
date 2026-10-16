@@ -35,7 +35,7 @@ MOON_CSFML_API void
 moon_Sound_destroy(moon_Sound* self);
 
 /**
- * Creates a xopy of this sound.
+ * Creates a copy of this sound.
  */
 MOON_CSFML_API moon_Sound*
 moon_Sound_get_copy(const moon_Sound* self);

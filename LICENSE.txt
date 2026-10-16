@@ -1,6 +1,6 @@
 # MoonCSFML
 
-MoonCSFML, 21.09.2026, author: turtlem225@gmail.com
+MoonCSFML, 2026 -- 20xx, author: turtlem225@gmail.com
 
 Licensed under zlib/libpng license.
 

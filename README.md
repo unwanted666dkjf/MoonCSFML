@@ -1,5 +1,6 @@
 # MoonCSFML
 
+<img src="logo.jpg" alt="MoonCSFML logo" width="100%">
 
 ## About
 
@@ -39,7 +40,7 @@ I'll contribute bug fixes and update the library as needed.<br>
 I also plan to rewrite SFML 2.6.2 slightly. I don't promise anything, 
 but if the need arises, I will definitely do it.<br>
 
-As they used to say, “If it works, don’t touch it.”.<br>
+“If it works and it is stable, then don’t touch it.”<br>
 
 I also want to note that SFML always doesn't work well with 
 unicode characters. As the ['SFML Team'](https://github.com/SFML/SFML/issues/3406) themselves say, 
@@ -68,6 +69,7 @@ the following packages may need to be installed on Linux:
 X11, Xrandr, Xcursor, Xinerama, Xi, Xxf86vm, 
 xkbcommon-x11 and Xrender.
 Btw, wayland sucks.<br>
+None of the requirements is rigid, however, if at least one is not met, then problems can be expected.<br>
 
 Building:<br>
 0. Download repository.

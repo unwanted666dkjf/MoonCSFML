@@ -469,6 +469,12 @@ MOON_CSFML_API int
 moon_Keymove_get_key_jump(const moon_Keymove* self);
 
 /**
+ * Returns current jump status.
+ */
+MOON_CSFML_API int
+moon_Keymove_get_jump_status(const moon_Keymove* self);
+
+/**
  * Returns horizontal direction.
  */
 MOON_CSFML_API int

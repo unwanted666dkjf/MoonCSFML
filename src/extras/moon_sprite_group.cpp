@@ -4,6 +4,8 @@
 
 #include "../../headers/extras/GenericDraw.hpp"
 
+#include "../../headers/extras/moon_bounds_type.h"
+
 #include "../../headers/extras/moon_sprite_group.h"
 
 #include "../../headers/extras/moon_sprite_transform.h"
@@ -81,17 +83,25 @@ moon_SpriteGroup_get_global_bounds(
 moon_FRectLst*
 moon_SpriteGroup_get_rectangles(
 	const moon_SpriteGroup* self,
-	int as_global_bounds
+	int bounds_type
 ) {
 	moon_FRectLst* rects = moon_FRectLst_create(self->sprites.size());
 	for (unsigned long i = 0UL; i < self->sprites.size(); i++) {
-		if (as_global_bounds) {
-			moon_FloatRect bounds = moon_Sprite_get_global_bounds(self->sprites[i]);
-			moon_FRectLst_push_back(rects, &bounds);
-		} else {
-			moon_FloatRect bounds = moon_Sprite_get_local_bounds(self->sprites[i]);
-			moon_FRectLst_push_back(rects, &bounds);
+		moon_FloatRect bounds;
+		switch(bounds_type) {
+			case moon_BoundsType_Global:
+				bounds = moon_Sprite_get_global_bounds(self->sprites[i]);
+				break;
+			case moon_BoundsType_Local:
+				bounds = moon_Sprite_get_local_bounds(self->sprites[i]);
+				break;
+			case moon_BoundsType_World:
+				bounds = moon_Sprite_get_world_bounds(self->sprites[i]);
+				break;
+			default:
+				continue;
 		}
+		moon_FRectLst_push_back(rects, &bounds);
 	}
 	return rects;
 }

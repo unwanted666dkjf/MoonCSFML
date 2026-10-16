@@ -44,7 +44,7 @@ moon_StandardSizes_get_size(const moon_VideoMode* video_mode) {
 		big_size / less_size, 2
 	);
 	float divisor;
-	if (kwh == 1.25f) {
+	if (kwh <= 1.25f) {
 		divisor = 19.f;
 	} else if (kwh > 1.25f && kwh <= 1.33f) {
 		divisor = 24.f;

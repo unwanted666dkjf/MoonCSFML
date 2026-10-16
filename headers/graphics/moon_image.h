@@ -43,7 +43,7 @@ moon_Image_from_color(
 /**
  * Creates the image from another image(array of pixels).
  * The \a pixel array is assumed to contain 32-bits RGBA pixels,
- *and have the given \a width and \a height. If no*t, this is
+ *and have the given \a width and \a height. If not, this is
  *an undefined behavior.
  * If \a pixels is null, an empty image is created.
  */

@@ -12,7 +12,7 @@ extern "C" {
 
 /**
  * A structure for storing information about the size
- *of the game window and cell (block) in the game world.
+ *of the game window and cell (block) in the 2D game world.
  * Note: the number of columns and/or rows can be 1 more
  *than it actually is.
  */
