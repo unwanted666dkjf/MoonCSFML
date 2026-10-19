@@ -39,6 +39,24 @@ extern "C" {
 
 #include "./moon_frect_lst.h"
 
+#include "./moon_text_array.h"
+
+#include "./moon_sprite_array.h"
+
+#include "./moon_text_write_array.h"
+
+#include "./moon_gui_fpscntr_array.h"
+
+#include "./moon_convex_shape_array.h"
+
+#include "./moon_circle_shape_array.h"
+
+#include "./moon_rectangle_shape_array.h"
+
+#include "./moon_slide_show_array.h"
+
+#include "./moon_slide_animation_array.h"
+
 #include "./moon_collisions.h"
 
 #include "./moon_text_write.h"

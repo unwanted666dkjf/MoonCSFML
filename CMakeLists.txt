@@ -22,7 +22,7 @@ set(
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-option(BUILD_SHARED "Build as shared library" ON)
+option(BUILD_SHARED "Build as shared library" OFF)
 
 option(BUILD_STATIC "Build as static library" OFF)	# Static build may not include all deps.
 
@@ -193,6 +193,15 @@ set(SOURCES
 	src/extras/moon_frect_utils.c
 	src/extras/moon_winstuff.c
 	src/extras/moon_collisions.c
+	src/extras/moon_text_array.cpp
+	src/extras/moon_sprite_array.cpp
+	src/extras/moon_text_write_array.cpp
+	src/extras/moon_gui_fpscntr_array.cpp
+	src/extras/moon_convex_shape_array.cpp
+	src/extras/moon_circle_shape_array.cpp
+	src/extras/moon_rectangle_shape_array.cpp
+	src/extras/moon_slide_show_array.cpp
+	src/extras/moon_slide_animation_array.cpp
 	src/extras/moon_file.cpp
 	src/extras/moon_filelines.cpp
 	src/extras/moon_frect_lst.cpp

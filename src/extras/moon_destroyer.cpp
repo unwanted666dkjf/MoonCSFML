@@ -62,6 +62,24 @@
 
 #include "../../headers/extras/moon_frect_lst.h"
 
+#include "../../headers/extras/moon_text_array.h"
+
+#include "../../headers/extras/moon_sprite_array.h"
+
+#include "../../headers/extras/moon_text_write_array.h"
+
+#include "../../headers/extras/moon_gui_fpscntr_array.h"
+
+#include "../../headers/extras/moon_convex_shape_array.h"
+
+#include "../../headers/extras/moon_circle_shape_array.h"
+
+#include "../../headers/extras/moon_rectangle_shape_array.h"
+
+#include "../../headers/extras/moon_slide_show_array.h"
+
+#include "../../headers/extras/moon_slide_animation_array.h"
+
 #include "../../headers/extras/moon_text_write.h"
 
 #include "../../headers/extras/moon_draw_group.h"
@@ -277,6 +295,33 @@ moon_Destroyer_kill(moon_Destroyable* victim) {
 			break;
 		case moon_Destroyable_FRectLst:
 			moon_FRectLst_destroy(static_cast<moon_FRectLst*>(body));
+			break;
+		case moon_Destroyable_TextArray:
+			moon_TextArray_destroy(static_cast<moon_TextArray*>(body));
+			break;
+		case moon_Destroyable_SpriteArray:
+			moon_SpriteArray_destroy(static_cast<moon_SpriteArray*>(body));
+			break;
+		case moon_Destroyable_TextWriteArray:
+			moon_TextWriteArray_destroy(static_cast<moon_TextWriteArray*>(body));
+			break;
+		case moon_Destroyable_guiFpsCntrArray:
+			moon_guiFpsCntrArray_destroy(static_cast<moon_guiFpsCntrArray*>(body));
+			break;
+		case moon_Destroyable_ConvexShapeArray:
+			moon_ConvexShapeArray_destroy(static_cast<moon_ConvexShapeArray*>(body));
+			break;
+		case moon_Destroyable_CircleShapeArray:
+			moon_CircleShapeArray_destroy(static_cast<moon_CircleShapeArray*>(body));
+			break;
+		case moon_Destroyable_RectangleShapeArray:
+			moon_RectangleShapeArray_destroy(static_cast<moon_RectangleShapeArray*>(body));
+			break;
+		case moon_Destroyable_SlideShowArray:
+			moon_SlideShowArray_destroy(static_cast<moon_SlideShowArray*>(body));
+			break;
+		case moon_Destroyable_SlideAnimationArray:
+			moon_SlideAnimationArray_destroy(static_cast<moon_SlideAnimationArray*>(body));
 			break;
 		case moon_Destroyable_TextWrite:
 			moon_TextWrite_destroy(static_cast<moon_TextWrite*>(body));
