@@ -24,6 +24,20 @@ moon_SlideShowArray_destroy(moon_SlideShowArray* self) {
 	moon_GraphicsGroup_destroy<moon_SlideShowArray>(self);
 }
 
+void
+moon_SlideShowArray_update(
+	const moon_SlideShowArray* self,
+	unsigned long first_index,
+	unsigned long num_elements
+) {
+	moon_GraphicsGroup_Procedure_voidcall(
+		self,
+		first_index,
+		num_elements,
+		moon_SlideShow_update
+	)
+}
+
 moon_SlideShowArray*
 moon_SlideShowArray_get_slice(
 	const moon_SlideShowArray* self,

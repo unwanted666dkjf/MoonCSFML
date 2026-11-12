@@ -29,7 +29,7 @@ option(BUILD_STATIC "Build as static library" OFF)	# Static build may not includ
 option(USE_STATIC_STD_LIBS "Try to link static standard libraries" ON)
 
 # on Windows you may not have libasan
-option(USE_ADDRESS_SANITAZERS "Use address sanitazers for Debug build or not" OFF)
+option(USE_ADDRESS_SANITAZERS "Use address sanitazers for Debug build or not" ON)
 
 # If neither shared nor static is specified, it builds executable
 

@@ -46,6 +46,32 @@ MOON_CSFML_API void
 moon_TextArray_destroy(moon_TextArray* self);
 
 /**
+ * Sets ascii text for items of the array.
+ * Operation starts from index 'first_index' and involves
+ *maximum 'num_elements'.
+ */
+MOON_CSFML_API void
+moon_TextArray_set_textA(
+	const moon_TextArray* self,
+	const char* text,
+	unsigned long first_index,
+	unsigned long num_elements
+);
+
+/**
+ * Sets wide text for items of the array.
+ * Operation starts from index 'first_index' and involves
+ *maximum 'num_elements'.
+ */
+MOON_CSFML_API void
+moon_TextArray_set_textW(
+	const moon_TextArray* self,
+	const wchar_t* text,
+	unsigned long first_index,
+	unsigned long num_elements
+);
+
+/**
  * Returns a slice of this array.
  * Slicing is similar(but not the same) to python slicing.
  * Indexes can be negative, in that case

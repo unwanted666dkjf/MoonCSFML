@@ -17,6 +17,8 @@
 
 struct moon_Text : public sf::Text, public moon_BoundedDrawable {
 
+	moon_Text();
+
 	moon_Text(
 		const char* string,
 		const moon_Font* font,

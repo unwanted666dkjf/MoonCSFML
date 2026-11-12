@@ -24,6 +24,48 @@ moon_guiFpsCntrArray_destroy(moon_guiFpsCntrArray* self) {
 	moon_GraphicsGroup_destroy<moon_guiFpsCntrArray>(self);
 }
 
+void
+moon_guiFpsCntrArray_stop(
+	const moon_guiFpsCntrArray* self,
+	unsigned long first_index,
+	unsigned long num_elements
+) {
+	moon_GraphicsGroup_Procedure_voidcall(
+		self,
+		first_index,
+		num_elements,
+		moon_guiFpsCntr_stop
+	)
+}
+
+void
+moon_guiFpsCntrArray_start(
+	const moon_guiFpsCntrArray* self,
+	unsigned long first_index,
+	unsigned long num_elements
+) {
+	moon_GraphicsGroup_Procedure_voidcall(
+		self,
+		first_index,
+		num_elements,
+		moon_guiFpsCntr_start
+	)
+}
+
+void
+moon_guiFpsCntrArray_update(
+	const moon_guiFpsCntrArray* self,
+	unsigned long first_index,
+	unsigned long num_elements
+) {
+	moon_GraphicsGroup_Procedure_voidcall(
+		self,
+		first_index,
+		num_elements,
+		moon_guiFpsCntr_update
+	)
+}
+
 moon_guiFpsCntrArray*
 moon_guiFpsCntrArray_get_slice(
 	const moon_guiFpsCntrArray* self,

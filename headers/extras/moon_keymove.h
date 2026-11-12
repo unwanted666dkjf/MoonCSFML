@@ -17,12 +17,12 @@
 #include "./moon_move_direction.h"
 
 
-#include "../../headers/system/moon_time.h"
+#include "../system/moon_time.h"
 
-#include "../../headers/system/moon_clock.h"
+#include "../system/moon_clock.h"
 
 
-#include "../../headers/window/moon_keyboard.h"
+#include "../window/moon_keyboard.h"
 
 
 #include "../graphics/moon_text.h"

@@ -46,6 +46,42 @@ MOON_CSFML_API void
 moon_guiFpsCntrArray_destroy(moon_guiFpsCntrArray* self);
 
 /**
+ * Stops items.
+ * Operation starts from index 'first_index' and involves
+ *maximum 'num_elements'.
+ */
+MOON_CSFML_API void
+moon_guiFpsCntrArray_stop(
+	const moon_guiFpsCntrArray* self,
+	unsigned long first_index,
+	unsigned long num_elements
+);
+
+/**
+ * Starts items.
+ * Operation starts from index 'first_index' and involves
+ *maximum 'num_elements'.
+ */
+MOON_CSFML_API void
+moon_guiFpsCntrArray_start(
+	const moon_guiFpsCntrArray* self,
+	unsigned long first_index,
+	unsigned long num_elements
+);
+
+/**
+ * Updates running items of this array.
+ * Operation starts from index 'first_index' and involves
+ *maximum 'num_elements'.
+ */
+MOON_CSFML_API void
+moon_guiFpsCntrArray_update(
+	const moon_guiFpsCntrArray* self,
+	unsigned long first_index,
+	unsigned long num_elements
+);
+
+/**
  * Returns a slice of this array.
  * Slicing is similar(but not the same) to python slicing.
  * Indexes can be negative, in that case

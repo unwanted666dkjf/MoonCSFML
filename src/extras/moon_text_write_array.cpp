@@ -24,6 +24,94 @@ moon_TextWriteArray_destroy(moon_TextWriteArray* self) {
 	moon_GraphicsGroup_destroy<moon_TextWriteArray>(self);
 }
 
+void
+moon_TextWriteArray_restart(
+	const moon_TextWriteArray* self,
+	unsigned long first_index,
+	unsigned long num_elements
+) {
+	moon_GraphicsGroup_Procedure_voidcall(
+		self,
+		first_index,
+		num_elements,
+		moon_TextWrite_restart
+	)
+}
+
+void
+moon_TextWriteArray_stop(
+	const moon_TextWriteArray* self,
+	unsigned long first_index,
+	unsigned long num_elements
+) {
+	moon_GraphicsGroup_Procedure_voidcall(
+		self,
+		first_index,
+		num_elements,
+		moon_TextWrite_stop
+	)
+}
+
+void
+moon_TextWriteArray_start(
+	const moon_TextWriteArray* self,
+	unsigned long first_index,
+	unsigned long num_elements
+) {
+	moon_GraphicsGroup_Procedure_voidcall(
+		self,
+		first_index,
+		num_elements,
+		moon_TextWrite_start
+	)
+}
+
+void
+moon_TextWriteArray_update(
+	const moon_TextWriteArray* self,
+	unsigned long first_index,
+	unsigned long num_elements
+) {
+	moon_GraphicsGroup_Procedure_voidcall(
+		self,
+		first_index,
+		num_elements,
+		moon_TextWrite_update
+	)
+}
+
+void
+moon_TextWriteArray_set_textA(
+	const moon_TextWriteArray* self,
+	const char* text,
+	unsigned long first_index,
+	unsigned long num_elements
+) {
+	moon_GraphicsGroup_Procedure_voidcall2(
+		self,
+		first_index,
+		num_elements,
+		text,
+		moon_TextWrite_set_textA
+	)
+}
+
+void
+moon_TextWriteArray_set_textW(
+	const moon_TextWriteArray* self,
+	const wchar_t* text,
+	unsigned long first_index,
+	unsigned long num_elements
+) {
+	moon_GraphicsGroup_Procedure_voidcall2(
+		self,
+		first_index,
+		num_elements,
+		text,
+		moon_TextWrite_set_textW
+	)
+}
+
 moon_TextWriteArray*
 moon_TextWriteArray_get_slice(
 	const moon_TextWriteArray* self,

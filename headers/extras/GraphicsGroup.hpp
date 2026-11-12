@@ -207,6 +207,38 @@ ElementType* moon_GraphicsGroup_get(
 	return self->objects[index];
 }
 
+#define moon_GraphicsGroup_Procedure_voidcall(	\
+	const_group_pointer,						\
+	first_index_ulong,							\
+	num_elements_ulong,							\
+	element_void_function						\
+)	\
+{	\
+	unsigned long end_Procedure__ = first_index_ulong + num_elements_ulong;	\
+	for (; first_index_ulong < end_Procedure__; first_index_ulong++) {		\
+		element_void_function(												\
+			const_group_pointer->objects[first_index_ulong]					\
+		);																	\
+	}																		\
+}
+
+#define moon_GraphicsGroup_Procedure_voidcall2(	\
+	const_group_pointer,						\
+	first_index_ulong,							\
+	num_elements_ulong,							\
+	second_argument,							\
+	element_void_function						\
+)	\
+{	\
+	unsigned long end_Procedure__ = first_index_ulong + num_elements_ulong;	\
+	for (; first_index_ulong < end_Procedure__; first_index_ulong++) {		\
+		element_void_function(												\
+			const_group_pointer->objects[first_index_ulong],				\
+			second_argument													\
+		);																	\
+	}																		\
+}
+
 #define moon_GraphicsGroup_Procedure_draw(	\
 	const_group_pointer,					\
 	wnd_pointer,							\

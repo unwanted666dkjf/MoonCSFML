@@ -46,6 +46,80 @@ MOON_CSFML_API void
 moon_TextWriteArray_destroy(moon_TextWriteArray* self);
 
 /**
+ * Restarts items.
+ * Operation starts from index 'first_index' and involves
+ *maximum 'num_elements'.
+ */
+MOON_CSFML_API void
+moon_TextWriteArray_restart(
+	const moon_TextWriteArray* self,
+	unsigned long first_index,
+	unsigned long num_elements
+);
+
+/**
+ * Stops items.
+ * Operation starts from index 'first_index' and involves
+ *maximum 'num_elements'.
+ */
+MOON_CSFML_API void
+moon_TextWriteArray_stop(
+	const moon_TextWriteArray* self,
+	unsigned long first_index,
+	unsigned long num_elements
+);
+
+/**
+ * Starts items.
+ * Operation starts from index 'first_index' and involves
+ *maximum 'num_elements'.
+ */
+MOON_CSFML_API void
+moon_TextWriteArray_start(
+	const moon_TextWriteArray* self,
+	unsigned long first_index,
+	unsigned long num_elements
+);
+
+/**
+ * Updates running items of this array.
+ * Operation starts from index 'first_index' and involves
+ *maximum 'num_elements'.
+ */
+MOON_CSFML_API void
+moon_TextWriteArray_update(
+	const moon_TextWriteArray* self,
+	unsigned long first_index,
+	unsigned long num_elements
+);
+
+/**
+ * Sets ascii text for items of the array.
+ * Operation starts from index 'first_index' and involves
+ *maximum 'num_elements'.
+ */
+MOON_CSFML_API void
+moon_TextWriteArray_set_textA(
+	const moon_TextWriteArray* self,
+	const char* text,
+	unsigned long first_index,
+	unsigned long num_elements
+);
+
+/**
+ * Sets wide text for items of the array.
+ * Operation starts from index 'first_index' and involves
+ *maximum 'num_elements'.
+ */
+MOON_CSFML_API void
+moon_TextWriteArray_set_textW(
+	const moon_TextWriteArray* self,
+	const wchar_t* text,
+	unsigned long first_index,
+	unsigned long num_elements
+);
+
+/**
  * Returns a slice of this array.
  * Slicing is similar(but not the same) to python slicing.
  * Indexes can be negative, in that case

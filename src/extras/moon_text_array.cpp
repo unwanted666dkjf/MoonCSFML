@@ -24,6 +24,38 @@ moon_TextArray_destroy(moon_TextArray* self) {
 	moon_GraphicsGroup_destroy<moon_TextArray>(self);
 }
 
+void
+moon_TextArray_set_textA(
+	const moon_TextArray* self,
+	const char* text,
+	unsigned long first_index,
+	unsigned long num_elements
+) {
+	moon_GraphicsGroup_Procedure_voidcall2(
+		self,
+		first_index,
+		num_elements,
+		text,
+		moon_Text_set_stringA
+	)
+}
+
+void
+moon_TextArray_set_textW(
+	const moon_TextArray* self,
+	const wchar_t* text,
+	unsigned long first_index,
+	unsigned long num_elements
+) {
+	moon_GraphicsGroup_Procedure_voidcall2(
+		self,
+		first_index,
+		num_elements,
+		text,
+		moon_Text_set_stringW
+	)
+}
+
 moon_TextArray*
 moon_TextArray_get_slice(
 	const moon_TextArray* self,

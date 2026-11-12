@@ -30,7 +30,7 @@ moon_VideoModesGen_create();
 /**
  * Destroys generator.
  */
-void
+MOON_CSFML_API void
 moon_VideoModesGen_destroy(moon_VideoModesGen* self);
 
 /**

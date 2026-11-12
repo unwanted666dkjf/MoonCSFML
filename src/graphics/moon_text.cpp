@@ -28,6 +28,11 @@ moon_Text_clear_cache(moon_Text* self);
 
 
 moon_Text*
+moon_Text_default() {
+	return new moon_Text();
+}
+
+moon_Text*
 moon_Text_createA(
 	const char* string,
 	const moon_Font* font,
@@ -370,6 +375,10 @@ moon_Text_clear_cache(moon_Text* self) {
 	self->wide_cache.clear();
 }
 
+
+moon_Text::moon_Text() : sf::Text() {
+	//
+}
 
 moon_Text::moon_Text(
 	const char* string,

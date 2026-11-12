@@ -18,6 +18,10 @@ extern "C" {
 
 #define moon_Collisions_ResolveHorizontal 	('h')
 
+#define moon_Collisions_ResolveHORVER		("hv")
+
+#define moon_Collisions_ResolveVERHOR		("vh")
+
 #define moon_Collisions_UnlimitedDistance 	(0.f)
 
 

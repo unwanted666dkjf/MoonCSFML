@@ -390,7 +390,7 @@ void collisions_test() {
 			rectangles,
 			colis_distancex,	// distance x
 			colis_distancey,	// distance y
-			"vh"
+			moon_Collisions_ResolveVERHOR
 		);
 		moon_RectangleShape_move(rect_shape, col_offsets.x, col_offsets.y);
 

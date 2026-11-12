@@ -77,7 +77,7 @@ moon_get_circle_point_position(
  * 'time'        -- elapsed time since the start of the motion.
  * 'phase'       -- initial phase offset of the wave.
  */
-moon_Vector2f
+MOON_CSFML_API moon_Vector2f
 moon_get_sine_wave_position(
 	float x0, float y0,
 	float speed,
@@ -96,7 +96,7 @@ moon_get_sine_wave_position(
  * 'time'        -- elapsed time since the start of the motion.
  * 'phase'       -- initial phase offset of the wave.
  */
-moon_Vector2f
+MOON_CSFML_API moon_Vector2f
 moon_get_cosine_wave_position(
 	float x0, float y0,
 	float speed,

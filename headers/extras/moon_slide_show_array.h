@@ -46,6 +46,18 @@ MOON_CSFML_API void
 moon_SlideShowArray_destroy(moon_SlideShowArray* self);
 
 /**
+ * Updates current sprite for each animation.
+ * Operation starts from index 'first_index' and involves
+ *maximum 'num_elements'.
+ */
+MOON_CSFML_API void
+moon_SlideShowArray_update(
+	const moon_SlideShowArray* self,
+	unsigned long first_index,
+	unsigned long num_elements
+);
+
+/**
  * Returns a slice of this array.
  * Slicing is similar(but not the same) to python slicing.
  * Indexes can be negative, in that case
